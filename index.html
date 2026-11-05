@@ -121,6 +121,23 @@
                     <p class="text-[10px] text-[#B84822] mt-1">※維持カロリーの目安になります</p>
                 </div>
 
+                <div class="bg-[#E9F7EE] rounded-xl p-4 text-center border border-[#8FD9A8]">
+                    <h2 class="text-xs font-bold text-[#2D3B55]">ダイエット中の食べる量の目安</h2>
+                    <div class="mt-1">
+                        <span id="dietLow" class="text-3xl font-extrabold text-[#2D3B55]">0</span>
+                        <span class="text-sm font-medium text-gray-600">〜</span>
+                        <span id="dietHigh" class="text-3xl font-extrabold text-[#2D3B55]">0</span>
+                        <span class="text-sm font-medium text-gray-600 ml-1">kcal</span>
+                    </div>
+                    <p class="text-[11px] text-[#2D3B55] mt-2 leading-relaxed">
+                        少なくとも<b>基礎代謝（<span id="dietFloor">0</span> kcal）以上</b>は食べてね。<br>
+                        減らしすぎると疲れやすくなったり、続かなくなったりします。
+                    </p>
+                    <p class="text-[10px] text-gray-500 mt-1">
+                        ※1日の総消費カロリーより1〜2割ほど少ない量を、ゆるい目安にしています。体調や持病がある方、妊娠中・授乳中の方は医師に相談してください。
+                    </p>
+                </div>
+
                 <!-- シェア用画像（身長・体重・年齢・性別は載せない） -->
                 <div class="space-y-2">
                     <button type="button" id="shareBtn"
@@ -366,6 +383,12 @@
 
             bmrValue.textContent = Math.round(bmr);
             tdeeValue.textContent = Math.round(tdee);
+            // ダイエット中の目安：総消費の8〜9割。ただし基礎代謝は下回らない
+            const dietLow = Math.max(Math.round(bmr), Math.round(tdee * 0.8));
+            const dietHigh = Math.max(dietLow, Math.round(tdee * 0.9));
+            document.getElementById('dietLow').textContent = dietLow;
+            document.getElementById('dietHigh').textContent = dietHigh;
+            document.getElementById('dietFloor').textContent = Math.round(bmr);
             resultArea.classList.remove('hidden');
 
             // シェア画像用に結果だけを保持（身長・体重・年齢は保持しない）
