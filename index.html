@@ -121,14 +121,58 @@
                     <p class="text-[10px] text-[#B84822] mt-1">※維持カロリーの目安になります</p>
                 </div>
 
+                <div class="bg-[#E9F7EE] rounded-xl p-4 text-center border border-[#8FD9A8]">
+                    <h2 class="text-xs font-bold text-[#2D3B55]">ダイエット中の食べる量の目安</h2>
+                    <div class="mt-1">
+                        <span id="dietLow" class="text-3xl font-extrabold text-[#2D3B55]">0</span>
+                        <span class="text-sm font-medium text-gray-600">〜</span>
+                        <span id="dietHigh" class="text-3xl font-extrabold text-[#2D3B55]">0</span>
+                        <span class="text-sm font-medium text-gray-600 ml-1">kcal</span>
+                    </div>
+                    <p class="text-[11px] text-[#2D3B55] mt-2 leading-relaxed">
+                        少なくとも<b>基礎代謝（<span id="dietFloor">0</span> kcal）以上</b>は食べてね。<br>
+                        減らしすぎると疲れやすくなったり、続かなくなったりします。
+                    </p>
+                    <p class="text-[10px] text-gray-500 mt-1">
+                        ※1日の総消費カロリーより1〜2割ほど少ない量を、ゆるい目安にしています。体調や持病がある方、妊娠中・授乳中の方は医師に相談してください。
+                    </p>
+                </div>
+
+                <details class="bg-white rounded-xl border border-[#F0E2CC] px-3 py-2 text-xs text-[#2D3B55]">
+                    <summary class="cursor-pointer list-none flex items-center justify-center gap-2 font-bold">
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#E8673C] text-white text-xs">?</span>
+                        ゾーンの見方
+                    </summary>
+                    <div class="mt-3 space-y-3 leading-relaxed">
+                        <p><span class="inline-block w-3 h-3 rounded-full bg-[#D96B6B] mr-1"></span><b>⚠️ 危険！健康リスクあり</b><br>
+                            基礎代謝より少ない量です。体に必要な最低限のエネルギーが足りなくなり、疲れやすくなったり、筋肉が落ちやすくなったりします。続かなくなってリバウンドしやすいので、ここでのダイエットはおすすめしません。</p>
+                        <p><span class="inline-block w-3 h-3 rounded-full bg-[#FFC9A8] mr-1"></span><b>🏃‍➡️ 急ぎめ（短期間だけ）</b><br>
+                            基礎代謝は下回らないけれど、食事をかなり減らしている状態です。続けるのはしんどくなりやすいので、使うとしても短い期間だけにして、体調が悪いときはすぐに戻してください。<br>
+                            <b>3ヶ月で <span id="kgFast">—</span></b>（計算上の数字です。3ヶ月も続けるのはしんどいので、短期間だけにしてください）</p>
+                        <p><span class="inline-block w-3 h-3 rounded-full bg-[#8FD9A8] mr-1"></span><b>🚶‍➡️ ゆるダイエット</b><br>
+                            がんばラン部のおすすめゾーンです。少しだけ我慢して、無理なく続けやすい量です。まずはここから始めてみてください。<br>
+                            <b>3ヶ月で <span id="kgSlow">—</span></b></p>
+                        <p><span class="inline-block w-3 h-3 rounded-full bg-[#F0E2CC] mr-1"></span><b>⚖️ 現状維持</b><br>
+                            今の体重を保ちやすい量です。減らしたい時期の休憩や、ダイエットのあとの維持にも使えます。</p>
+                        <p><span class="inline-block w-3 h-3 rounded-full bg-[#E8673C] mr-1"></span><b>🍔 オーバーカロリー</b><br>
+                            1日の消費カロリーより多い量です。この状態が続くと、体重は増えやすくなります。</p>
+                        <p class="text-[11px] text-gray-500">※体重の目安は、脂肪1kg＝約7,200kcalとして、毎日足りなくなるカロリーを3ヶ月（90日）分で計算し、各ゾーンの真ん中あたりの食べる量で出した数字です。体が慣れて減りにくくなるため、実際はこれより少なくなることが多く、個人差があります。</p>
+                        <p class="text-[11px] text-gray-500">※あくまで目安です。体質や活動量、体調によって合う量は変わります。体調や持病がある方、妊娠中・授乳中の方は医師に相談してください。</p>
+                    </div>
+                </details>
+
                 <!-- シェア用画像（身長・体重・年齢・性別は載せない） -->
                 <div class="space-y-2">
                     <button type="button" id="shareBtn"
                         class="w-full bg-[#8FD9A8] text-[#2D3B55] font-medium py-2.5 rounded-lg hover:bg-[#7BCD96] transition duration-200 shadow-md">
                         📸 基礎代謝を画像にする
                     </button>
+                    <button type="button" id="rangeBtn"
+                        class="w-full bg-[#FFC9A8] text-[#2D3B55] font-medium py-2.5 rounded-lg hover:bg-[#FFBA92] transition duration-200 shadow-md">
+                        📊 ダイエットレンジ表を画像にする
+                    </button>
                     <p class="text-[10px] text-gray-400 text-center">
-                        ※画像に載るのは基礎代謝量だけです。身長・体重・年齢・性別は載りません。
+                        ※画像に載るのはカロリーの数字だけです。身長・体重・年齢・性別は載りません。
                     </p>
 
                     <div id="sharePreview" class="hidden space-y-2">
@@ -332,17 +376,130 @@
             return canvas;
         }
 
-        document.getElementById('shareBtn').addEventListener('click', function() {
-            if (!lastResult) return;
-            const canvas = drawShareCard(lastResult.bmr);
+        // ダイエットレンジ表（横棒）。基礎代謝・総消費カロリーの数字だけ載せる
+        function drawRangeCard(bmr, tdee) {
+            const W = 1080, H = 1350;
+            const NAVY = '#2D3B55', ORANGE = '#E8673C', CREAM = '#FFF4E3', PEACH = '#FFC9A8', GREEN = '#8FD9A8';
+            const GRAY = '#D96B6B', SAND = '#F0E2CC';
+            const canvas = document.createElement('canvas');
+            canvas.width = W; canvas.height = H;
+            const ctx = canvas.getContext('2d');
+            const font = '"Noto Sans CJK JP","Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif';
+            const fmt = n => n.toLocaleString('ja-JP');
+
+            const b0 = bmr;
+            const b1 = Math.max(b0, Math.round(tdee * 0.8));
+            const b2 = Math.max(b1, Math.round(tdee * 0.9));
+            const b3 = tdee;
+            const lo = Math.round(b0 * 0.75), hi = Math.round(b3 * 1.15);
+            const X0 = 90, X1 = 990;
+            const xs = v => X0 + (v - lo) / (hi - lo) * (X1 - X0);
+
+            ctx.fillStyle = CREAM; ctx.fillRect(0, 0, W, H);
+            ctx.globalAlpha = 0.65; ctx.fillStyle = PEACH;
+            ctx.beginPath(); ctx.arc(1010, 70, 230, 0, Math.PI * 2); ctx.fill();
+            ctx.globalAlpha = 0.5; ctx.fillStyle = GREEN;
+            ctx.beginPath(); ctx.arc(40, 1290, 190, 0, Math.PI * 2); ctx.fill();
+            ctx.globalAlpha = 1;
+
+            // ロゴ
+            ctx.textAlign = 'left';
+            ctx.fillStyle = ORANGE; ctx.beginPath(); ctx.arc(88, 92, 16, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = NAVY; ctx.font = '900 44px ' + font; ctx.fillText('がんばラン部', 120, 108);
+            ctx.font = '500 26px ' + font; ctx.fillText('ゆる我慢ダイエット', 72, 152);
+
+            // 吹き出し
+            roundRectPath(ctx, 70, 200, 940, 140, 60); ctx.fillStyle = GREEN; ctx.fill();
+            ctx.beginPath(); ctx.moveTo(130, 330); ctx.lineTo(190, 332); ctx.lineTo(112, 388); ctx.closePath(); ctx.fill();
+            ctx.textAlign = 'center'; ctx.fillStyle = NAVY; ctx.font = '900 60px ' + font;
+            ctx.fillText('どこまで食べていい？', W / 2, 292);
+
+            // 横棒（ゾーン別）
+            const zones = [
+                { a: lo, b: b0, c: GRAY },
+                { a: b0, b: b1, c: PEACH },
+                { a: b1, b: b2, c: GREEN },
+                { a: b2, b: b3, c: SAND },
+                { a: b3, b: hi, c: ORANGE }
+            ];
+            const BY = 440, BH = 96;
+            ctx.save();
+            roundRectPath(ctx, X0, BY, X1 - X0, BH, 48); ctx.clip();
+            zones.forEach(z => { ctx.fillStyle = z.c; ctx.fillRect(xs(z.a), BY, xs(z.b) - xs(z.a) + 1, BH); });
+            ctx.restore();
+            // 白い境目
+            [b0, b1, b2, b3].forEach(v => { ctx.fillStyle = '#fff'; ctx.fillRect(xs(v) - 2, BY, 4, BH); });
+
+            // 目盛りの数字（近いときは段をずらす）
+            const ticks = [b0, b1, b2, b3].filter((v, i, arr) => arr.indexOf(v) === i).map(v => [v]);
+            let prevX = -999, row = 0;
+            ticks.forEach(t => {
+                const x = xs(t[0]);
+                row = (x - prevX < 110) ? 1 - row : 0;
+                prevX = x;
+                const y = BY + BH + 24 + row * 52;
+                ctx.fillStyle = NAVY; ctx.fillRect(x - 1.5, BY + BH, 3, 20 + row * 52);
+                ctx.textAlign = 'center'; ctx.font = '800 34px ' + font;
+                ctx.fillText(fmt(t[0]), x, y + 40);
+            });
+
+            // 凡例
+            const rows = [
+                { c: GRAY, e: '\u26A0\uFE0F', n: '危険！健康リスクあり', r: '〜 ' + fmt(b0 - 1) + ' kcal' },
+                { c: PEACH, e: '\u{1F3C3}\u200D\u27A1\uFE0F', n: '急ぎめ（短期間だけ）', r: b1 - b0 < 30 ? 'ほぼなし' : fmt(b0) + ' 〜 ' + fmt(b1) + ' kcal' },
+                { c: GREEN, e: '\u{1F6B6}\u200D\u27A1\uFE0F', n: 'ゆるダイエット', r: fmt(b1) + ' 〜 ' + fmt(b2) + ' kcal' },
+                { c: SAND, e: '\u2696\uFE0F', n: '現状維持', r: fmt(b2) + ' 〜 ' + fmt(b3) + ' kcal' },
+                { c: ORANGE, e: '\u{1F354}', n: 'オーバーカロリー', r: fmt(b3 + 1) + ' kcal 〜' }
+            ];
+            let y = 705;
+            rows.forEach((o, i) => {
+                const green = i === 2;
+                if (green) { roundRectPath(ctx, 60, y - 40, 960, 72, 36); ctx.fillStyle = '#fff'; ctx.fill(); }
+                ctx.fillStyle = o.c; ctx.beginPath(); ctx.arc(96, y - 4, 15, 0, Math.PI * 2); ctx.fill();
+                ctx.textAlign = 'left'; ctx.fillStyle = NAVY;
+                ctx.font = '36px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
+                ctx.fillText(o.e, 128, y + 8);
+                ctx.font = (green ? '900 ' : '700 ') + '38px ' + font;
+                ctx.fillText(o.n, 186, y + 8);
+                ctx.textAlign = 'right'; ctx.font = '800 36px ' + font;
+                ctx.fillText(o.r, 990, y + 8);
+                y += 84;
+            });
+
+            ctx.textAlign = 'center'; ctx.fillStyle = NAVY; ctx.globalAlpha = 0.7;
+            ctx.font = '500 26px ' + font;
+            ctx.fillText('あくまで目安です。基礎代謝を下回らないのが目安。', W / 2, 1128);
+            ctx.fillText('体調や持病がある方は医師に相談してね', W / 2, 1166);
+            ctx.globalAlpha = 1;
+
+            // フッター
+            ctx.fillStyle = NAVY; ctx.font = '900 54px ' + font; ctx.fillText('痩せ方より、続け方。', W / 2, 1226);
+            ctx.fillStyle = ORANGE; ctx.font = '800 38px ' + font; ctx.fillText('@ganbarunbu', W / 2, 1278);
+            ctx.fillStyle = NAVY; ctx.globalAlpha = 0.7; ctx.font = '400 26px ' + font;
+            ctx.fillText('基礎代謝電卓  ' + location.host + location.pathname.replace(/index\.html$/, ''), W / 2, 1322);
+            ctx.globalAlpha = 1;
+            return canvas;
+        }
+
+        function showCanvas(canvas, fileName) {
             canvas.toBlob(function(blob) {
                 if (!blob) return;
                 if (shareUrl) URL.revokeObjectURL(shareUrl);
                 shareUrl = URL.createObjectURL(blob);
                 shareImg.src = shareUrl;
                 saveLink.href = shareUrl;
+                saveLink.download = fileName;
                 sharePreview.classList.remove('hidden');
             }, 'image/png');
+        }
+
+        document.getElementById('shareBtn').addEventListener('click', function() {
+            if (!lastResult) return;
+            showCanvas(drawShareCard(lastResult.bmr), 'kisotaisha.png');
+        });
+        document.getElementById('rangeBtn').addEventListener('click', function() {
+            if (!lastResult) return;
+            showCanvas(drawRangeCard(lastResult.bmr, lastResult.tdee), 'diet-range.png');
         });
 
         form.addEventListener('submit', function(e) {
@@ -366,6 +523,19 @@
 
             bmrValue.textContent = Math.round(bmr);
             tdeeValue.textContent = Math.round(tdee);
+            // ダイエット中の目安：総消費の8〜9割。ただし基礎代謝は下回らない
+            const dietLow = Math.max(Math.round(bmr), Math.round(tdee * 0.8));
+            const dietHigh = Math.max(dietLow, Math.round(tdee * 0.9));
+            document.getElementById('dietLow').textContent = dietLow;
+            document.getElementById('dietHigh').textContent = dietHigh;
+            document.getElementById('dietFloor').textContent = Math.round(bmr);
+            // 3ヶ月（90日）で減る体重の目安。脂肪1kg≒7,200kcal
+            const kg = d => Math.round(d * 90 / 7200);
+            const e1 = Math.max(Math.round(bmr), Math.round(tdee * 0.8));
+            const e2 = Math.max(e1, Math.round(tdee * 0.9));
+            const E0 = Math.round(bmr), T0 = Math.round(tdee);
+            document.getElementById('kgFast').textContent = (e1 - E0 < 30) ? 'ほぼなし' : '約 −' + kg(((T0 - e1) + (T0 - E0)) / 2) + 'kg';
+            document.getElementById('kgSlow').textContent = '約 −' + kg(((T0 - e2) + (T0 - e1)) / 2) + 'kg';
             resultArea.classList.remove('hidden');
 
             // シェア画像用に結果だけを保持（身長・体重・年齢は保持しない）
