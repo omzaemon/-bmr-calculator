@@ -6,31 +6,36 @@
     <title>簡単！基礎代謝量・消費カロリー計算ツール</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>body{font-family:"Noto Sans JP",ui-sans-serif,system-ui,"Hiragino Sans",sans-serif}</style>
 </head>
-<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col justify-between">
+<body class="bg-[#FFF4E3] text-[#2D3B55] min-h-screen flex flex-col justify-between">
 
     <!-- ヘッダー -->
-    <header class="bg-white shadow-sm py-4">
+    <header class="bg-white shadow-sm py-4 border-b-4 border-[#8FD9A8]">
         <div class="max-w-md mx-auto px-4 text-center">
-            <h1 class="text-xl font-bold text-indigo-600">基礎代謝量・消費カロリー計算ツール</h1>
-            <p class="text-xs text-gray-500 mt-1">毎日の体づくりやダイエットの基準に</p>
+            <p class="text-[11px] font-bold text-[#E8673C]">● がんばラン部｜ゆる我慢ダイエット</p>
+            <h1 class="text-xl font-black text-[#2D3B55] mt-1">基礎代謝量・消費カロリー計算ツール</h1>
+            <p class="text-xs text-[#2D3B55]/70 mt-1">痩せ方より、続け方。毎日の体づくりの基準に</p>
         </div>
     </header>
 
     <!-- メインコンテンツ -->
     <main class="max-w-md mx-auto px-4 py-6 w-full flex-grow space-y-6">
-        <div class="bg-white rounded-2xl shadow-md p-6">
+        <div class="bg-white rounded-2xl shadow-md border border-[#F0E2CC] p-6">
             <form id="bmrForm" class="space-y-4">
                 <!-- 性別 -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">性別</label>
+                    <label class="block text-sm font-medium text-[#2D3B55] mb-1">性別</label>
                     <div class="flex gap-4">
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="gender" value="male" checked class="text-indigo-600 focus:ring-indigo-500">
+                            <input type="radio" name="gender" value="male" checked class="text-[#E8673C] focus:ring-[#E8673C]">
                             <span>男性</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="gender" value="female" class="text-indigo-600 focus:ring-indigo-500">
+                            <input type="radio" name="gender" value="female" class="text-[#E8673C] focus:ring-[#E8673C]">
                             <span>女性</span>
                         </label>
                     </div>
@@ -38,35 +43,35 @@
 
                 <!-- 体重 -->
                 <div>
-                    <label for="weight" class="block text-sm font-medium text-gray-700 mb-1">体重 (kg)</label>
+                    <label for="weight" class="block text-sm font-medium text-[#2D3B55] mb-1">体重 (kg)</label>
                     <input type="text" id="weight" inputmode="decimal" required placeholder="例: 65"
                         oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E8673C]">
                     <span class="text-[10px] text-gray-400">※半角数字で入力してください</span>
                 </div>
 
                 <!-- 身長 -->
                 <div>
-                    <label for="height" class="block text-sm font-medium text-gray-700 mb-1">身長 (cm)</label>
+                    <label for="height" class="block text-sm font-medium text-[#2D3B55] mb-1">身長 (cm)</label>
                     <input type="text" id="height" inputmode="decimal" required placeholder="例: 170"
                         oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E8673C]">
                     <span class="text-[10px] text-gray-400">※半角数字で入力してください</span>
                 </div>
 
                 <!-- 年齢 -->
                 <div>
-                    <label for="age" class="block text-sm font-medium text-gray-700 mb-1">年齢 (歳)</label>
+                    <label for="age" class="block text-sm font-medium text-[#2D3B55] mb-1">年齢 (歳)</label>
                     <input type="text" id="age" inputmode="numeric" required placeholder="例: 28"
                         oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E8673C]">
                     <span class="text-[10px] text-gray-400">※半角数字で入力してください</span>
                 </div>
 
                 <!-- 運動量 -->
                 <div>
-                    <label for="activity" class="block text-sm font-medium text-gray-700 mb-1">毎日の運動量</label>
-                    <select id="activity" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+                    <label for="activity" class="block text-sm font-medium text-[#2D3B55] mb-1">毎日の運動量</label>
+                    <select id="activity" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E8673C] bg-white">
                         <option value="1.2">ほとんど運動しない（デスクワーク中心）</option>
                         <option value="1.375">軽い運動（週1〜2回程度・軽い散歩など）</option>
                         <option value="1.55" selected>中程度の運動（週3〜5回程度・ランニングやジム）</option>
@@ -76,7 +81,7 @@
 
                 <!-- 計算ボタン -->
                 <button type="submit"
-                    class="w-full bg-indigo-600 text-white font-medium py-2.5 rounded-lg hover:bg-indigo-700 transition duration-200 shadow-md">
+                    class="w-full bg-[#CF5428] text-white font-medium py-2.5 rounded-lg hover:bg-[#B84822] transition duration-200 shadow-md">
                     代謝・消費カロリーを計算する
                 </button>
             </form>
@@ -86,24 +91,24 @@
                 <div class="text-center">
                     <h2 class="text-xs font-medium text-gray-500">あなたの1日の基礎代謝量</h2>
                     <div class="mt-1">
-                        <span id="bmrValue" class="text-3xl font-extrabold text-indigo-600">0</span>
+                        <span id="bmrValue" class="text-3xl font-extrabold text-[#E8673C]">0</span>
                         <span class="text-sm font-medium text-gray-600 ml-1">kcal</span>
                     </div>
                 </div>
 
-                <div class="bg-indigo-50 rounded-xl p-4 text-center">
-                    <h2 class="text-xs font-medium text-indigo-700">1日の総消費カロリー（運動量込み）</h2>
+                <div class="bg-[#FFE9DA] rounded-xl p-4 text-center">
+                    <h2 class="text-xs font-medium text-[#B84822]">1日の総消費カロリー（運動量込み）</h2>
                     <div class="mt-1">
-                        <span id="tdeeValue" class="text-4xl font-extrabold text-indigo-700">0</span>
-                        <span class="text-sm font-medium text-indigo-600 ml-1">kcal</span>
+                        <span id="tdeeValue" class="text-4xl font-extrabold text-[#B84822]">0</span>
+                        <span class="text-sm font-medium text-[#E8673C] ml-1">kcal</span>
                     </div>
-                    <p class="text-[10px] text-indigo-500 mt-1">※維持カロリーの目安になります</p>
+                    <p class="text-[10px] text-[#B84822] mt-1">※維持カロリーの目安になります</p>
                 </div>
 
                 <!-- シェア用画像（身長・体重・年齢・性別は載せない） -->
                 <div class="space-y-2">
                     <button type="button" id="shareBtn"
-                        class="w-full bg-pink-500 text-white font-medium py-2.5 rounded-lg hover:bg-pink-600 transition duration-200 shadow-md">
+                        class="w-full bg-[#8FD9A8] text-[#2D3B55] font-medium py-2.5 rounded-lg hover:bg-[#7BCD96] transition duration-200 shadow-md">
                         📸 基礎代謝を画像にする
                     </button>
                     <p class="text-[10px] text-gray-400 text-center">
@@ -113,7 +118,7 @@
                     <div id="sharePreview" class="hidden space-y-2">
                         <img id="shareImg" alt="シェア用画像" class="w-full rounded-xl shadow-md">
                         <a id="saveLink" download="kisotaisha.png"
-                            class="block text-center bg-indigo-600 text-white text-sm font-medium py-2.5 rounded-lg hover:bg-indigo-700">
+                            class="block text-center bg-[#CF5428] text-white text-sm font-medium py-2.5 rounded-lg hover:bg-[#B84822]">
                             画像を保存
                         </a>
                         <p class="text-[10px] text-gray-400 text-center">
@@ -129,12 +134,12 @@
         </div>
 
         <!-- カロリー目安参考セクション -->
-        <div class="bg-white rounded-2xl shadow-md p-6 space-y-4 text-xs text-gray-600">
-            <h2 class="font-bold text-gray-800 text-sm border-b pb-2">💡 あのメニューのカロリー目安</h2>
+        <div class="bg-white rounded-2xl shadow-md border border-[#F0E2CC] p-6 space-y-4 text-xs text-gray-600">
+            <h2 class="font-bold text-[#2D3B55] text-sm border-b pb-2">💡 あのメニューのカロリー目安</h2>
             
             <!-- 男子ガッツリ -->
             <div>
-                <span class="font-bold text-indigo-600 block mb-1">🔥 男子に人気のガッツリ飯</span>
+                <span class="font-bold text-[#E8673C] block mb-1">🔥 男子に人気のガッツリ飯</span>
                 <ul class="space-y-1 list-disc list-inside text-gray-500">
                     <li>ラーメン（大盛・チャーシュー）: 約 900〜1,100 kcal</li>
                     <li>カツ丼: 約 850〜950 kcal</li>
@@ -144,7 +149,7 @@
 
             <!-- 女子カフェ・定番 -->
             <div>
-                <span class="font-bold text-pink-600 block mb-1">🥗 女子に人気の定番ランチ</span>
+                <span class="font-bold text-[#2D3B55] block mb-1">🥗 女子に人気の定番ランチ</span>
                 <ul class="space-y-1 list-disc list-inside text-gray-500">
                     <li>チキンサラダプレート: 約 450〜550 kcal</li>
                     <li>トマト系パスタ: 約 600〜700 kcal</li>
@@ -154,7 +159,7 @@
 
             <!-- スタバドリンク -->
             <div>
-                <span class="font-bold text-emerald-600 block mb-1">☕ スターバックスのドリンク目安（Tall）</span>
+                <span class="font-bold text-[#3E9B63] block mb-1">☕ スターバックスのドリンク目安（Tall）</span>
                 <ul class="space-y-1 list-disc list-inside text-gray-500">
                     <li>スターバックス ラテ（ミルク）: 約 220 kcal</li>
                     <li>スターバックス ラテ（オーツミルク変更）: 約 210 kcal</li>
@@ -165,13 +170,13 @@
 
             <!-- カロリー一覧表へのリンク -->
             <a href="calories.html"
-                class="block w-full text-center bg-indigo-50 text-indigo-700 font-medium py-2.5 rounded-lg hover:bg-indigo-100 transition duration-200">
+                class="block w-full text-center bg-[#FFE9DA] text-[#B84822] font-medium py-2.5 rounded-lg hover:bg-[#FFDCC6] transition duration-200">
                 もっと見る：カロリー一覧表（約170品目）→
             </a>
         </div>
 
         <!-- アフィリエイトバナー配置エリア -->
-        <div class="bg-white rounded-2xl shadow-md p-4 text-center">
+        <div class="bg-white rounded-2xl shadow-md border border-[#F0E2CC] p-4 text-center">
             <p class="text-xs text-gray-400 mb-2">おすすめの関連サービス・プロテイン</p>
             <div style="font-size:12px; color:#888;">
                 （ここにA8.netのHTMLタグやバナーコードを貼り付けます）
@@ -180,9 +185,11 @@
     </main>
 
     <!-- フッター -->
-    <footer class="bg-white border-t border-gray-200 py-4 mt-8">
-        <div class="max-w-md mx-auto px-4 text-center text-xs text-gray-400">
-            &copy; 2026 基礎代謝量計算ツール All Rights Reserved.
+    <footer class="bg-white border-t border-[#F0E2CC] py-5 mt-8">
+        <div class="max-w-md mx-auto px-4 text-center text-xs text-[#2D3B55]/70 space-y-1">
+            <p class="font-bold text-[#2D3B55]">痩せ方より、続け方。</p>
+            <p class="font-bold text-[#E8673C]">@ganbarunbu</p>
+            <p>&copy; 2026 基礎代謝量計算ツール All Rights Reserved.</p>
         </div>
     </footer>
 

@@ -3,37 +3,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <title>あのメニューのカロリー一覧表｜基礎代謝量・消費カロリー計算ツール</title>
 <style>
 /* layout: 意外ポイントのカード → 絞り込み → バー付きランキング表 */
 :root{
-  --bg:#f9fafb; --card:#ffffff; --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb;
-  --accent:#4f46e5; --accent-soft:#eef2ff; --bar:#6366f1; --bar-bg:#e5e7eb;
-  --lo:#2b8a5b; --hi:#c92a2a;
-  --font-d:ui-sans-serif,system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif; --font-b:ui-sans-serif,system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;
+  --bg:#FFF4E3; --card:#ffffff; --ink:#2D3B55; --muted:#5F6B83; --line:#F0E2CC;
+  --accent:#CF5428; --accent-soft:#FFE9DA; --bar:#E8673C; --bar-bg:#F3E6D3;
+  --lo:#2E8B57; --hi:#c92a2a;
+  --font-d:"Noto Sans JP",ui-sans-serif,system-ui,"Hiragino Sans",sans-serif; --font-b:"Noto Sans JP",ui-sans-serif,system-ui,"Hiragino Sans",sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#111827; --card:#1f2937; --ink:#f3f4f6; --muted:#9ca3af; --line:#374151;
-    --accent:#818cf8; --accent-soft:#312e81; --bar:#818cf8; --bar-bg:#374151;
+    --bg:#1B2438; --card:#26334D; --ink:#FFF4E3; --muted:#B7BFD0; --line:#3A4866;
+    --accent:#FF8A5C; --accent-soft:#4A3A3A; --bar:#FF8A5C; --bar-bg:#3A4866;
     --lo:#5fd49a; --hi:#ff7b7b; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#111827; --card:#1f2937; --ink:#f3f4f6; --muted:#9ca3af; --line:#374151;
-  --accent:#818cf8; --accent-soft:#312e81; --bar:#818cf8; --bar-bg:#374151;
+  --bg:#1B2438; --card:#26334D; --ink:#FFF4E3; --muted:#B7BFD0; --line:#3A4866;
+  --accent:#FF8A5C; --accent-soft:#4A3A3A; --bar:#FF8A5C; --bar-bg:#3A4866;
   --lo:#5fd49a; --hi:#ff7b7b; color-scheme:dark;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-b);line-height:1.6}
 .wrap{max-width:720px;margin:0 auto;padding:20px 16px 60px}
-h1{font-family:var(--font-d);font-weight:700;color:var(--accent);font-size:clamp(24px,6vw,34px);margin:8px 0 4px;text-wrap:balance}
+h1{font-family:var(--font-d);font-weight:900;color:var(--ink);font-size:clamp(24px,6vw,34px);margin:8px 0 4px;text-wrap:balance}
 .lead{color:var(--muted);margin:0 0 20px;font-size:14px}
 h2{font-family:var(--font-d);font-size:19px;margin:28px 0 10px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:12px 14px}
 .card b{font-family:var(--font-d);font-size:15px;display:block;margin-bottom:2px}
-.card .vs{font-size:22px;font-weight:800;font-family:var(--font-d);color:var(--accent);font-variant-numeric:tabular-nums}
+.card .vs{font-size:22px;font-weight:900;font-family:var(--font-d);color:var(--bar);font-variant-numeric:tabular-nums}
 .card p{margin:4px 0 0;font-size:13px;color:var(--muted)}
 .tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 10px}
 .chip{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
@@ -62,6 +64,7 @@ input[type=number]{width:72px}
 <body>
 <div class="wrap">
   <p style="margin:0;font-size:13px"><a href="./" style="color:var(--accent)">← 基礎代謝量・消費カロリー計算ツールへ</a></p>
+  <p style="margin:10px 0 0;font-size:12px;font-weight:700;color:var(--accent)">● がんばラン部｜ゆる我慢ダイエット</p>
   <h1>主食とファストフードのカロリー表</h1>
   <p class="lead">ファストフード・牛丼・主食・麺に加えて、サイゼリヤ、ミスド、スタバ、タリーズ、スイーツ、コンビニの売れ筋（おにぎり、ホットスナック、中華まん、カップ麺、弁当、おでん）まで約160品目。タップで絞り込み、並べ替えできます。</p>
 
@@ -107,6 +110,8 @@ input[type=number]{width:72px}
   <p class="note">
     数値は1食・1個あたりのkcalです。マクドナルド・ケンタッキー・モス・牛丼3社は各社公表値をまとめた情報（fatsecret、各種カロリー比較記事、吉野家の公式PDFなど）、主食は文部科学省「日本食品標準成分表2020年版（八訂）」の100g値から一般的な1人前の重さで計算した目安です。スタバはトールサイズ、タピオカ系は2022年のTeaWay公表値で、サイズは店により違います。ケーキ・パンケーキ・ソフトクリームは一般的な目安で、商品ごとに大きく変わります。コンビニ商品は発売年によって数値が変わるため、補足欄に時点を入れています。コンビニ弁当は目安です。メニューや量は改定されるので、最新は各社の公式栄養成分表で確認してください。「推定」は公式値ではありません。
   </p>
+  <p style="text-align:center;margin:28px 0 0;font-weight:900;font-size:18px">痩せ方より、続け方。</p>
+  <p style="text-align:center;margin:2px 0 0;font-weight:700;color:var(--accent)">@ganbarunbu</p>
   <p class="note" style="text-align:center">&copy; 2026 基礎代謝量計算ツール All Rights Reserved.</p>
 </div>
 
