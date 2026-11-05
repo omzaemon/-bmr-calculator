@@ -1,0 +1,16 @@
+{
+  "name": "基礎代謝電卓",
+  "short_name": "基礎代謝電卓",
+  "description": "基礎代謝量・消費カロリー計算ツール｜がんばラン部",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFF4E3",
+  "theme_color": "#E8673C",
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
