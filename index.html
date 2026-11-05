@@ -274,15 +274,16 @@
             ctx.closePath();
         }
 
-        // ダイエットレンジ表（横棒）。基礎代謝・総消費カロリーの数字だけ載せる
+        // 基礎代謝カード（上）＋ダイエットレンジ表（下）の1枚画像。数字だけ載せる
         function drawRangeCard(bmr, tdee) {
             const W = 1080, H = 1350;
             const NAVY = '#2D3B55', ORANGE = '#E8673C', CREAM = '#FFF4E3', PEACH = '#FFC9A8', GREEN = '#8FD9A8';
-            const GRAY = '#D96B6B', SAND = '#F0E2CC';
+            const RED = '#D96B6B', SAND = '#F0E2CC';
             const canvas = document.createElement('canvas');
             canvas.width = W; canvas.height = H;
             const ctx = canvas.getContext('2d');
             const font = '"Noto Sans CJK JP","Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif';
+            const emoji = '"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
             const fmt = n => n.toLocaleString('ja-JP');
 
             const b0 = bmr;
@@ -293,6 +294,7 @@
             const X0 = 90, X1 = 990;
             const xs = v => X0 + (v - lo) / (hi - lo) * (X1 - X0);
 
+            // 背景
             ctx.fillStyle = CREAM; ctx.fillRect(0, 0, W, H);
             ctx.globalAlpha = 0.65; ctx.fillStyle = PEACH;
             ctx.beginPath(); ctx.arc(1010, 70, 230, 0, Math.PI * 2); ctx.fill();
@@ -302,86 +304,89 @@
 
             // ロゴ
             ctx.textAlign = 'left';
-            ctx.fillStyle = ORANGE; ctx.beginPath(); ctx.arc(88, 92, 16, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = NAVY; ctx.font = '900 44px ' + font; ctx.fillText('がんばラン部', 120, 108);
-            ctx.font = '500 26px ' + font; ctx.fillText('ゆる我慢ダイエット', 72, 152);
+            ctx.fillStyle = ORANGE; ctx.beginPath(); ctx.arc(88, 78, 14, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = NAVY; ctx.font = '900 40px ' + font; ctx.fillText('がんばラン部', 118, 92);
+            ctx.font = '500 24px ' + font; ctx.fillText('ゆる我慢ダイエット', 72, 128);
 
-            // 吹き出し（基礎代謝）
-            roundRectPath(ctx, 70, 190, 940, 230, 70); ctx.fillStyle = GREEN; ctx.fill();
-            ctx.beginPath(); ctx.moveTo(130, 410); ctx.lineTo(190, 412); ctx.lineTo(112, 468); ctx.closePath(); ctx.fill();
+            // 上：基礎代謝カード
+            ctx.save();
+            ctx.shadowColor = 'rgba(45,59,85,0.14)'; ctx.shadowBlur = 36; ctx.shadowOffsetY = 12;
+            roundRectPath(ctx, 70, 160, 940, 300, 56); ctx.fillStyle = '#ffffff'; ctx.fill();
+            ctx.restore();
             ctx.textAlign = 'center'; ctx.fillStyle = NAVY; ctx.font = '700 40px ' + font;
-            ctx.fillText('あなたの基礎代謝は', W / 2, 252);
+            ctx.fillText('あなたの基礎代謝は', W / 2, 228);
             const num = fmt(bmr);
-            ctx.font = '900 118px ' + font;
+            ctx.font = '900 150px ' + font;
             const tw = ctx.measureText(num).width;
-            ctx.fillStyle = ORANGE; ctx.textAlign = 'center';
-            ctx.fillText(num, W / 2 - 60, 372);
-            ctx.fillStyle = NAVY; ctx.font = '800 50px ' + font; ctx.textAlign = 'left';
-            ctx.fillText('kcal', W / 2 - 60 + tw / 2 + 14, 372);
+            const kw = 130;                       // 「kcal」ぶんの幅
+            const nx = W / 2 - kw / 2;            // 数字の中心
+            roundRectPath(ctx, nx - tw / 2 - 14, 336, tw + 28, 40, 20); ctx.fillStyle = PEACH; ctx.fill();
+            ctx.fillStyle = ORANGE; ctx.textAlign = 'center'; ctx.fillText(num, nx, 372);
+            ctx.fillStyle = NAVY; ctx.font = '800 54px ' + font; ctx.textAlign = 'left';
+            ctx.fillText('kcal', nx + tw / 2 + 18, 372);
+            ctx.textAlign = 'center'; ctx.globalAlpha = 0.65; ctx.font = '500 28px ' + font;
+            ctx.fillText('基礎代謝 = 何もしなくても1日に使うカロリー', W / 2, 436);
+            ctx.globalAlpha = 1;
 
-            // 横棒（ゾーン別）
+            // 下：レンジ表
+            roundRectPath(ctx, 300, 484, 480, 62, 31); ctx.fillStyle = GREEN; ctx.fill();
+            ctx.fillStyle = NAVY; ctx.font = '900 40px ' + font; ctx.textAlign = 'center';
+            ctx.fillText('どこまで食べていい？', W / 2, 528);
+
             const zones = [
-                { a: lo, b: b0, c: GRAY },
+                { a: lo, b: b0, c: RED },
                 { a: b0, b: b1, c: PEACH },
                 { a: b1, b: b2, c: GREEN },
                 { a: b2, b: b3, c: SAND },
                 { a: b3, b: hi, c: ORANGE }
             ];
-            const BY = 500, BH = 86;
+            const BY = 580, BH = 76;
             ctx.save();
-            roundRectPath(ctx, X0, BY, X1 - X0, BH, 48); ctx.clip();
+            roundRectPath(ctx, X0, BY, X1 - X0, BH, 38); ctx.clip();
             zones.forEach(z => { ctx.fillStyle = z.c; ctx.fillRect(xs(z.a), BY, xs(z.b) - xs(z.a) + 1, BH); });
             ctx.restore();
-            // 白い境目
             [b0, b1, b2, b3].forEach(v => { ctx.fillStyle = '#fff'; ctx.fillRect(xs(v) - 2, BY, 4, BH); });
 
-            // 目盛りの数字（近いときは段をずらす）
-            const ticks = [b0, b1, b2, b3].filter((v, i, arr) => arr.indexOf(v) === i).map(v => [v]);
+            const ticks = [b0, b1, b2, b3].filter((v, i, arr) => arr.indexOf(v) === i);
             let prevX = -999, row = 0;
-            ticks.forEach(t => {
-                const x = xs(t[0]);
+            ticks.forEach(v => {
+                const x = xs(v);
                 row = (x - prevX < 110) ? 1 - row : 0;
                 prevX = x;
-                const y = BY + BH + 24 + row * 52;
-                ctx.fillStyle = NAVY; ctx.fillRect(x - 1.5, BY + BH, 3, 20 + row * 52);
-                ctx.textAlign = 'center'; ctx.font = '800 34px ' + font;
-                ctx.fillText(fmt(t[0]), x, y + 40);
+                ctx.fillStyle = NAVY; ctx.fillRect(x - 1.5, BY + BH, 3, 16 + row * 46);
+                ctx.textAlign = 'center'; ctx.font = '800 30px ' + font;
+                ctx.fillText(fmt(v), x, BY + BH + 20 + row * 46 + 32);
             });
 
-            // 凡例
             const rows = [
-                { c: GRAY, e: '\u26A0\uFE0F', n: '危険！健康リスクあり', r: '〜 ' + fmt(b0 - 1) + ' kcal' },
+                { c: RED, e: '\u26A0\uFE0F', n: '危険！健康リスクあり', r: '〜 ' + fmt(b0 - 1) + ' kcal' },
                 { c: PEACH, e: '\u{1F3C3}\u200D\u27A1\uFE0F', n: '急ぎめ（短期間だけ）', r: b1 - b0 < 30 ? 'ほぼなし' : fmt(b0) + ' 〜 ' + fmt(b1) + ' kcal' },
                 { c: GREEN, e: '\u{1F6B6}\u200D\u27A1\uFE0F', n: 'ゆるダイエット', r: fmt(b1) + ' 〜 ' + fmt(b2) + ' kcal' },
                 { c: SAND, e: '\u2696\uFE0F', n: '現状維持', r: fmt(b2) + ' 〜 ' + fmt(b3) + ' kcal' },
                 { c: ORANGE, e: '\u{1F354}', n: 'オーバーカロリー', r: fmt(b3 + 1) + ' kcal 〜' }
             ];
-            let y = 740;
+            let y = 818;
             rows.forEach((o, i) => {
                 const green = i === 2;
-                if (green) { roundRectPath(ctx, 60, y - 40, 960, 72, 36); ctx.fillStyle = '#fff'; ctx.fill(); }
-                ctx.fillStyle = o.c; ctx.beginPath(); ctx.arc(96, y - 4, 15, 0, Math.PI * 2); ctx.fill();
+                if (green) { roundRectPath(ctx, 60, y - 34, 960, 62, 31); ctx.fillStyle = '#fff'; ctx.fill(); }
+                ctx.fillStyle = o.c; ctx.beginPath(); ctx.arc(96, y - 4, 13, 0, Math.PI * 2); ctx.fill();
                 ctx.textAlign = 'left'; ctx.fillStyle = NAVY;
-                ctx.font = '36px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
-                ctx.fillText(o.e, 128, y + 8);
-                ctx.font = (green ? '900 ' : '700 ') + '38px ' + font;
-                ctx.fillText(o.n, 186, y + 8);
-                ctx.textAlign = 'right'; ctx.font = '800 36px ' + font;
-                ctx.fillText(o.r, 990, y + 8);
-                y += 74;
+                ctx.font = '32px ' + emoji; ctx.fillText(o.e, 124, y + 7);
+                ctx.font = (green ? '900 ' : '700 ') + '34px ' + font; ctx.fillText(o.n, 178, y + 7);
+                ctx.textAlign = 'right'; ctx.font = '800 32px ' + font; ctx.fillText(o.r, 990, y + 7);
+                y += 66;
             });
 
             ctx.textAlign = 'center'; ctx.fillStyle = NAVY; ctx.globalAlpha = 0.7;
-            ctx.font = '500 26px ' + font;
-            ctx.fillText('あくまで目安です。基礎代謝を下回らないのが目安。', W / 2, 1138);
-            ctx.fillText('体調や持病がある方は医師に相談してね', W / 2, 1174);
+            ctx.font = '500 23px ' + font;
+            ctx.fillText('あくまで目安です。基礎代謝を下回らないのが目安。体調や持病がある方は医師に相談してね', W / 2, 1176);
             ctx.globalAlpha = 1;
 
             // フッター
-            ctx.fillStyle = NAVY; ctx.font = '900 54px ' + font; ctx.fillText('痩せ方より、続け方。', W / 2, 1226);
-            ctx.fillStyle = ORANGE; ctx.font = '800 38px ' + font; ctx.fillText('@ganbarunbu', W / 2, 1278);
-            ctx.fillStyle = NAVY; ctx.globalAlpha = 0.7; ctx.font = '400 26px ' + font;
-            ctx.fillText('基礎代謝電卓  ' + location.host + location.pathname.replace(/index\.html$/, ''), W / 2, 1322);
+            ctx.fillStyle = NAVY; ctx.font = '900 50px ' + font; ctx.fillText('痩せ方より、続け方。', W / 2, 1236);
+            ctx.fillStyle = ORANGE; ctx.font = '800 36px ' + font; ctx.fillText('@ganbarunbu', W / 2, 1284);
+            ctx.fillStyle = NAVY; ctx.globalAlpha = 0.7; ctx.font = '400 25px ' + font;
+            ctx.fillText('基礎代謝電卓  ' + location.host + location.pathname.replace(/index\.html$/, ''), W / 2, 1326);
             ctx.globalAlpha = 1;
             return canvas;
         }
