@@ -302,11 +302,7 @@
             ctx.beginPath(); ctx.arc(40, H - 60, 190, 0, Math.PI * 2); ctx.fill();
             ctx.globalAlpha = 1;
 
-            // ロゴ
-            ctx.textAlign = 'left';
-            ctx.fillStyle = ORANGE; ctx.beginPath(); ctx.arc(88, 78, 14, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = NAVY; ctx.font = '900 40px ' + font; ctx.fillText('がんばラン部', 118, 92);
-            ctx.font = '500 24px ' + font; ctx.fillText('ゆる我慢ダイエット', 72, 128);
+            ctx.save(); ctx.translate(0, -50);
 
             // 上：基礎代謝カード
             ctx.save();
@@ -393,6 +389,7 @@
                 y += 84;
             });
 
+            ctx.restore();
             ctx.textAlign = 'center'; ctx.fillStyle = NAVY; ctx.globalAlpha = 0.7;
             ctx.font = '500 23px ' + font;
             ctx.fillText('あくまで目安です。基礎代謝を下回らないのが目安。体調や持病がある方は医師に相談してね', W / 2, 1430);
