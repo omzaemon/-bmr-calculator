@@ -156,7 +156,7 @@
                             今の体重を保ちやすい量です。減らしたい時期の休憩や、ダイエットのあとの維持にも使えます。</p>
                         <p><span class="inline-block w-3 h-3 rounded-full bg-[#E8673C] mr-1"></span><b>🍔 オーバーカロリー</b><br>
                             1日の消費カロリーより多い量です。この状態が続くと、体重は増えやすくなります。</p>
-                        <p class="text-[11px] text-gray-500">※体重の目安は、脂肪1kg＝約7,200kcalとして、毎日足りなくなるカロリーを半年（180日）分で計算した数字です。体が慣れて減りにくくなるため、実際はこれより少なくなることが多く、個人差があります。</p>
+                        <p class="text-[11px] text-gray-500">※体重の目安は、脂肪1kg＝約7,200kcalとして、毎日足りなくなるカロリーを半年（180日）分で計算し、各ゾーンの真ん中あたりの食べる量で出した数字です。体が慣れて減りにくくなるため、実際はこれより少なくなることが多く、個人差があります。</p>
                         <p class="text-[11px] text-gray-500">※あくまで目安です。体質や活動量、体調によって合う量は変わります。体調や持病がある方、妊娠中・授乳中の方は医師に相談してください。</p>
                     </div>
                 </details>
@@ -534,8 +534,8 @@
             const e1 = Math.max(Math.round(bmr), Math.round(tdee * 0.8));
             const e2 = Math.max(e1, Math.round(tdee * 0.9));
             const E0 = Math.round(bmr), T0 = Math.round(tdee);
-            document.getElementById('kgFast').textContent = (e1 - E0 < 30) ? 'ほぼなし' : '約 −' + kg(T0 - e1) + '〜' + kg(T0 - E0) + 'kg';
-            document.getElementById('kgSlow').textContent = '約 −' + kg(T0 - e2) + '〜' + kg(T0 - e1) + 'kg';
+            document.getElementById('kgFast').textContent = (e1 - E0 < 30) ? 'ほぼなし' : '約 −' + kg(((T0 - e1) + (T0 - E0)) / 2) + 'kg';
+            document.getElementById('kgSlow').textContent = '約 −' + kg(((T0 - e2) + (T0 - e1)) / 2) + 'kg';
             resultArea.classList.remove('hidden');
 
             // シェア画像用に結果だけを保持（身長・体重・年齢は保持しない）
