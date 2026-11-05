@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#FFF4E3"/>
+  <rect x="116" y="76" width="280" height="360" rx="40" fill="#2D3B55"/>
+  <rect x="144" y="106" width="224" height="88" rx="18" fill="#8FD9A8"/>
+  <text x="256" y="168" font-family="Noto Sans CJK JP, sans-serif" font-weight="900" font-size="50" text-anchor="middle" fill="#2D3B55">基礎代謝</text>
+  <g fill="#FFC9A8">
+    <rect x="144" y="222" width="56" height="48" rx="12"/><rect x="228" y="222" width="56" height="48" rx="12"/><rect x="312" y="222" width="56" height="48" rx="12"/>
+    <rect x="144" y="290" width="56" height="48" rx="12"/><rect x="228" y="290" width="56" height="48" rx="12"/><rect x="312" y="290" width="56" height="48" rx="12"/>
+    <rect x="144" y="358" width="56" height="48" rx="12"/><rect x="228" y="358" width="56" height="48" rx="12"/>
+  </g>
+  <rect x="312" y="358" width="56" height="48" rx="12" fill="#E8673C"/>
+  <rect x="332" y="378" width="16" height="3" fill="#fff"/>
+</svg>
