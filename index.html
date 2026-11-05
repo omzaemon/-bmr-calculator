@@ -152,7 +152,7 @@
                         <p><span class="inline-block w-3 h-3 rounded-full bg-[#8FD9A8] mr-1"></span><b>🚶‍➡️ ゆるダイエット</b><br>
                             がんばラン部のおすすめゾーンです。少しだけ我慢して、無理なく続けやすい量です。まずはここから始めてみてください。<br>
                             <b>3ヶ月で <span id="kgSlow">—</span></b></p>
-                        <p><span class="inline-block w-3 h-3 rounded-full bg-[#F0E2CC] mr-1"></span><b>⚖️ 現状維持</b><br>
+                        <p><span class="inline-block w-3 h-3 rounded-full bg-[#CFE3F7] mr-1"></span><b>⚖️ 現状維持</b><br>
                             今の体重を保ちやすい量です。減らしたい時期の休憩や、ダイエットのあとの維持にも使えます。</p>
                         <p><span class="inline-block w-3 h-3 rounded-full bg-[#E8673C] mr-1"></span><b>🍔 オーバーカロリー</b><br>
                             1日の消費カロリーより多い量です。この状態が続くと、体重は増えやすくなります。</p>
@@ -276,9 +276,9 @@
 
         // 基礎代謝カード（上）＋ダイエットレンジ表（下）の1枚画像。数字だけ載せる
         function drawRangeCard(bmr, tdee) {
-            const W = 1080, H = 1350;
+            const W = 1080, H = 1620;
             const NAVY = '#2D3B55', ORANGE = '#E8673C', CREAM = '#FFF4E3', PEACH = '#FFC9A8', GREEN = '#8FD9A8';
-            const RED = '#D96B6B', SAND = '#F0E2CC';
+            const RED = '#D96B6B', SAND = '#CFE3F7';
             const canvas = document.createElement('canvas');
             canvas.width = W; canvas.height = H;
             const ctx = canvas.getContext('2d');
@@ -299,7 +299,7 @@
             ctx.globalAlpha = 0.65; ctx.fillStyle = PEACH;
             ctx.beginPath(); ctx.arc(1010, 70, 230, 0, Math.PI * 2); ctx.fill();
             ctx.globalAlpha = 0.5; ctx.fillStyle = GREEN;
-            ctx.beginPath(); ctx.arc(40, 1290, 190, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(40, H - 60, 190, 0, Math.PI * 2); ctx.fill();
             ctx.globalAlpha = 1;
 
             // ロゴ
@@ -329,9 +329,9 @@
             ctx.globalAlpha = 1;
 
             // 下：レンジ表
-            roundRectPath(ctx, 300, 484, 480, 62, 31); ctx.fillStyle = GREEN; ctx.fill();
-            ctx.fillStyle = NAVY; ctx.font = '900 40px ' + font; ctx.textAlign = 'center';
-            ctx.fillText('どこまで食べていい？', W / 2, 528);
+            roundRectPath(ctx, 170, 500, 740, 104, 52); ctx.fillStyle = NAVY; ctx.fill();
+            ctx.fillStyle = '#ffffff'; ctx.font = '900 60px ' + font; ctx.textAlign = 'center';
+            ctx.fillText('どこまで食べていい？', W / 2, 574);
 
             const zones = [
                 { a: lo, b: b0, c: RED },
@@ -340,9 +340,9 @@
                 { a: b2, b: b3, c: SAND },
                 { a: b3, b: hi, c: ORANGE }
             ];
-            const BY = 580, BH = 76;
+            const BY = 660, BH = 92;
             ctx.save();
-            roundRectPath(ctx, X0, BY, X1 - X0, BH, 38); ctx.clip();
+            roundRectPath(ctx, X0, BY, X1 - X0, BH, 46); ctx.clip();
             zones.forEach(z => { ctx.fillStyle = z.c; ctx.fillRect(xs(z.a), BY, xs(z.b) - xs(z.a) + 1, BH); });
             ctx.restore();
             [b0, b1, b2, b3].forEach(v => { ctx.fillStyle = '#fff'; ctx.fillRect(xs(v) - 2, BY, 4, BH); });
@@ -353,9 +353,9 @@
                 const x = xs(v);
                 row = (x - prevX < 110) ? 1 - row : 0;
                 prevX = x;
-                ctx.fillStyle = NAVY; ctx.fillRect(x - 1.5, BY + BH, 3, 16 + row * 46);
-                ctx.textAlign = 'center'; ctx.font = '800 30px ' + font;
-                ctx.fillText(fmt(v), x, BY + BH + 20 + row * 46 + 32);
+                ctx.fillStyle = NAVY; ctx.fillRect(x - 1.5, BY + BH, 3, 18 + row * 48);
+                ctx.textAlign = 'center'; ctx.font = '800 32px ' + font;
+                ctx.fillText(fmt(v), x, BY + BH + 20 + row * 48 + 34);
             });
 
             const rows = [
@@ -365,28 +365,28 @@
                 { c: SAND, e: '\u2696\uFE0F', n: '現状維持', r: fmt(b2) + ' 〜 ' + fmt(b3) + ' kcal' },
                 { c: ORANGE, e: '\u{1F354}', n: 'オーバーカロリー', r: fmt(b3 + 1) + ' kcal 〜' }
             ];
-            let y = 818;
+            let y = 950;
             rows.forEach((o, i) => {
                 const green = i === 2;
-                if (green) { roundRectPath(ctx, 60, y - 34, 960, 62, 31); ctx.fillStyle = '#fff'; ctx.fill(); }
-                ctx.fillStyle = o.c; ctx.beginPath(); ctx.arc(96, y - 4, 13, 0, Math.PI * 2); ctx.fill();
+                if (green) { roundRectPath(ctx, 60, y - 40, 960, 74, 37); ctx.fillStyle = '#fff'; ctx.fill(); }
+                ctx.fillStyle = o.c; ctx.beginPath(); ctx.arc(96, y - 4, 15, 0, Math.PI * 2); ctx.fill();
                 ctx.textAlign = 'left'; ctx.fillStyle = NAVY;
-                ctx.font = '32px ' + emoji; ctx.fillText(o.e, 124, y + 7);
-                ctx.font = (green ? '900 ' : '700 ') + '34px ' + font; ctx.fillText(o.n, 178, y + 7);
-                ctx.textAlign = 'right'; ctx.font = '800 32px ' + font; ctx.fillText(o.r, 990, y + 7);
-                y += 66;
+                ctx.font = '36px ' + emoji; ctx.fillText(o.e, 126, y + 8);
+                ctx.font = (green ? '900 ' : '700 ') + '38px ' + font; ctx.fillText(o.n, 184, y + 8);
+                ctx.textAlign = 'right'; ctx.font = '800 36px ' + font; ctx.fillText(o.r, 990, y + 8);
+                y += 84;
             });
 
             ctx.textAlign = 'center'; ctx.fillStyle = NAVY; ctx.globalAlpha = 0.7;
             ctx.font = '500 23px ' + font;
-            ctx.fillText('あくまで目安です。基礎代謝を下回らないのが目安。体調や持病がある方は医師に相談してね', W / 2, 1176);
+            ctx.fillText('あくまで目安です。基礎代謝を下回らないのが目安。体調や持病がある方は医師に相談してね', W / 2, 1405);
             ctx.globalAlpha = 1;
 
             // フッター
-            ctx.fillStyle = NAVY; ctx.font = '900 50px ' + font; ctx.fillText('痩せ方より、続け方。', W / 2, 1236);
-            ctx.fillStyle = ORANGE; ctx.font = '800 36px ' + font; ctx.fillText('@ganbarunbu', W / 2, 1284);
+            ctx.fillStyle = NAVY; ctx.font = '900 56px ' + font; ctx.fillText('痩せ方より、続け方。', W / 2, 1480);
+            ctx.fillStyle = ORANGE; ctx.font = '800 36px ' + font; ctx.fillText('@ganbarunbu', W / 2, 1538);
             ctx.fillStyle = NAVY; ctx.globalAlpha = 0.7; ctx.font = '400 25px ' + font;
-            ctx.fillText('基礎代謝電卓  ' + location.host + location.pathname.replace(/index\.html$/, ''), W / 2, 1326);
+            ctx.fillText('基礎代謝電卓  ' + location.host + location.pathname.replace(/index\.html$/, ''), W / 2, 1584);
             ctx.globalAlpha = 1;
             return canvas;
         }
