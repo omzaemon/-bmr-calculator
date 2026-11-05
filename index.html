@@ -104,30 +104,20 @@
                 <div class="space-y-2">
                     <button type="button" id="shareBtn"
                         class="w-full bg-pink-500 text-white font-medium py-2.5 rounded-lg hover:bg-pink-600 transition duration-200 shadow-md">
-                        📸 結果をシェア用画像にする
+                        📸 基礎代謝を画像にする
                     </button>
                     <p class="text-[10px] text-gray-400 text-center">
-                        ※画像に載るのは基礎代謝量と消費カロリーだけです。身長・体重・年齢・性別は載りません。
+                        ※画像に載るのは基礎代謝量だけです。身長・体重・年齢・性別は載りません。
                     </p>
 
                     <div id="sharePreview" class="hidden space-y-2">
                         <img id="shareImg" alt="シェア用画像" class="w-full rounded-xl shadow-md">
-                        <div class="flex gap-2">
-                            <a id="saveLink" download="kisotaisha.png"
-                                class="flex-1 text-center bg-indigo-600 text-white text-sm font-medium py-2 rounded-lg hover:bg-indigo-700">
-                                画像を保存
-                            </a>
-                            <a id="xLink" target="_blank" rel="noopener noreferrer"
-                                class="flex-1 text-center bg-gray-900 text-white text-sm font-medium py-2 rounded-lg hover:bg-black">
-                                Xで投稿
-                            </a>
-                        </div>
-                        <button type="button" id="nativeShare"
-                            class="hidden w-full bg-white border border-gray-300 text-gray-700 text-sm font-medium py-2 rounded-lg hover:bg-gray-50">
-                            画像つきでシェア（Instagramなど）
-                        </button>
+                        <a id="saveLink" download="kisotaisha.png"
+                            class="block text-center bg-indigo-600 text-white text-sm font-medium py-2.5 rounded-lg hover:bg-indigo-700">
+                            画像を保存
+                        </a>
                         <p class="text-[10px] text-gray-400 text-center">
-                            ※Xの投稿画面は画像を自動で付けられません。先に「画像を保存」してから添付してください。
+                            ※保存できない場合は、画像を長押ししてください。
                         </p>
                     </div>
                 </div>
@@ -206,10 +196,7 @@
         const sharePreview = document.getElementById('sharePreview');
         const shareImg = document.getElementById('shareImg');
         const saveLink = document.getElementById('saveLink');
-        const xLink = document.getElementById('xLink');
-        const nativeShare = document.getElementById('nativeShare');
         let lastResult = null;
-        let shareFile = null;
         let shareUrl = null;
 
         // 角丸の四角を描く
@@ -223,8 +210,8 @@
             ctx.closePath();
         }
 
-        // シェア用画像を描く（基礎代謝量・消費カロリーのみ）
-        function drawShareCard(bmr, tdee) {
+        // シェア用画像を描く（基礎代謝量のみ）
+        function drawShareCard(bmr) {
             const W = 1080, H = 1350;
             const canvas = document.createElement('canvas');
             canvas.width = W; canvas.height = H;
@@ -239,55 +226,35 @@
 
             ctx.textAlign = 'center';
             ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 60px ' + font;
-            ctx.fillText('わたしの基礎代謝', W / 2, 150);
+            ctx.font = '800 76px ' + font;
+            ctx.fillText('このカロリーは食べてOK！', W / 2, 190);
 
-            roundRectPath(ctx, 70, 220, W - 140, 880, 56);
+            roundRectPath(ctx, 70, 290, W - 140, 760, 56);
             ctx.fillStyle = 'rgba(255,255,255,0.96)';
             ctx.fill();
 
-            ctx.fillStyle = '#6b7280';
-            ctx.font = '600 40px ' + font;
-            ctx.fillText('1日の基礎代謝量', W / 2, 330);
+            ctx.fillStyle = '#374151';
+            ctx.font = '700 60px ' + font;
+            ctx.fillText('あなたの基礎代謝は', W / 2, 430);
 
             ctx.fillStyle = '#4f46e5';
-            ctx.font = '800 230px ' + font;
-            ctx.fillText(bmr.toLocaleString('ja-JP'), W / 2, 570);
+            ctx.font = '800 280px ' + font;
+            ctx.fillText(bmr.toLocaleString('ja-JP'), W / 2, 720);
 
             ctx.fillStyle = '#6b7280';
-            ctx.font = '600 56px ' + font;
-            ctx.fillText('kcal', W / 2, 650);
+            ctx.font = '700 80px ' + font;
+            ctx.fillText('kcal', W / 2, 830);
 
-            ctx.strokeStyle = '#e5e7eb';
-            ctx.lineWidth = 4;
-            ctx.beginPath();
-            ctx.moveTo(150, 710);
-            ctx.lineTo(W - 150, 710);
-            ctx.stroke();
-
-            ctx.fillStyle = '#6b7280';
-            ctx.font = '600 36px ' + font;
-            ctx.fillText('1日の総消費カロリー（運動込み）', W / 2, 785);
-
-            ctx.fillStyle = '#7c3aed';
-            ctx.font = '800 130px ' + font;
-            ctx.fillText(tdee.toLocaleString('ja-JP') + ' kcal', W / 2, 920);
-
-            // ビッグマック換算（525kcal）
-            const bm = (bmr / 525).toFixed(1);
-            ctx.fillStyle = '#374151';
-            ctx.font = '600 40px ' + font;
-            ctx.fillText('基礎代謝だけで、ビッグマック約' + bm + '個ぶん', W / 2, 1020);
             ctx.fillStyle = '#9ca3af';
-            ctx.font = '400 26px ' + font;
-            ctx.fillText('※ビッグマック1個 = 525kcalで換算', W / 2, 1065);
+            ctx.font = '500 34px ' + font;
+            ctx.fillText('基礎代謝 = 何もしなくても1日に使うカロリー', W / 2, 960);
 
             ctx.fillStyle = '#ffffff';
             ctx.font = 'bold 44px ' + font;
-            ctx.fillText('基礎代謝量・消費カロリー計算ツール', W / 2, 1200);
+            ctx.fillText('基礎代謝量・消費カロリー計算ツール', W / 2, 1180);
             ctx.font = '400 30px ' + font;
             ctx.globalAlpha = 0.85;
-            ctx.fillText(location.host + location.pathname.replace(/index\.html$/, ''), W / 2, 1255);
+            ctx.fillText(location.host + location.pathname.replace(/index\.html$/, ''), W / 2, 1235);
             ctx.globalAlpha = 1;
 
             return canvas;
@@ -295,35 +262,15 @@
 
         document.getElementById('shareBtn').addEventListener('click', function() {
             if (!lastResult) return;
-            const canvas = drawShareCard(lastResult.bmr, lastResult.tdee);
+            const canvas = drawShareCard(lastResult.bmr);
             canvas.toBlob(function(blob) {
                 if (!blob) return;
                 if (shareUrl) URL.revokeObjectURL(shareUrl);
                 shareUrl = URL.createObjectURL(blob);
                 shareImg.src = shareUrl;
                 saveLink.href = shareUrl;
-                shareFile = new File([blob], 'kisotaisha.png', { type: 'image/png' });
-
-                const text = 'わたしの基礎代謝は' + lastResult.bmr + 'kcal、1日の消費カロリーは' + lastResult.tdee + 'kcalでした！ #基礎代謝 #カロリー計算';
-                const pageUrl = location.origin + location.pathname.replace(/index\.html$/, '');
-                xLink.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(pageUrl);
-
-                if (navigator.canShare && navigator.canShare({ files: [shareFile] })) {
-                    nativeShare.classList.remove('hidden');
-                }
                 sharePreview.classList.remove('hidden');
             }, 'image/png');
-        });
-
-        nativeShare.addEventListener('click', async function() {
-            if (!shareFile || !lastResult) return;
-            try {
-                await navigator.share({
-                    files: [shareFile],
-                    text: 'わたしの基礎代謝は' + lastResult.bmr + 'kcalでした！ #基礎代謝',
-                    url: location.origin + location.pathname.replace(/index\.html$/, '')
-                });
-            } catch (err) {}
         });
 
         form.addEventListener('submit', function(e) {
