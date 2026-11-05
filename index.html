@@ -320,8 +320,8 @@
             const tw = ctx.measureText(num).width;
             const kw = 130;                       // 「kcal」ぶんの幅
             const nx = W / 2 - kw / 2;            // 数字の中心
-            roundRectPath(ctx, nx - tw / 2 - 14, 336, tw + 28, 40, 20); ctx.fillStyle = PEACH; ctx.fill();
-            ctx.fillStyle = ORANGE; ctx.textAlign = 'center'; ctx.fillText(num, nx, 372);
+            roundRectPath(ctx, nx - tw / 2 - 14, 336, tw + 28, 40, 20); ctx.fillStyle = '#CDEFD9'; ctx.fill();
+            ctx.fillStyle = '#3E9B63'; ctx.textAlign = 'center'; ctx.fillText(num, nx, 372);
             ctx.fillStyle = NAVY; ctx.font = '800 54px ' + font; ctx.textAlign = 'left';
             ctx.fillText('kcal', nx + tw / 2 + 18, 372);
             ctx.textAlign = 'center'; ctx.globalAlpha = 0.65; ctx.font = '500 28px ' + font;
