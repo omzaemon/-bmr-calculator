@@ -63,10 +63,14 @@ input[type=number]{width:72px}
 .notelink span{display:block;font-size:13px;color:var(--muted)}
 .notelink em{font-style:normal;font-weight:700;color:var(--accent);font-size:13px}
 .notelink:focus-visible,.notelink:hover{outline:3px solid var(--accent);outline-offset:2px}
+.ic{width:30px;height:30px;vertical-align:middle;margin-right:8px;flex:none}
+.card b{display:flex;align-items:center;gap:8px}.card b .ic{width:28px;height:28px;margin:0}
+.notelink .nl-ic{display:flex;gap:6px;margin-bottom:6px}.notelink .nl-ic .ic{width:34px;height:34px;margin:0}
 .note{font-size:12px;color:var(--muted);margin-top:18px;line-height:1.7}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-burger" viewBox="0 0 80 80"><path d="M12 36 Q40 6 68 36Z" fill="#C98B5A" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><rect x="10" y="38" width="60" height="7" rx="3.5" fill="#8FD9A8" stroke="#2D3B55" stroke-width="3"/><rect x="12" y="47" width="56" height="9" rx="4" fill="#7a4a2b" stroke="#2D3B55" stroke-width="3"/><path d="M12 58 H68 Q66 72 40 72 Q14 72 12 58Z" fill="#C98B5A" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/></symbol><symbol id="i-fries" viewBox="0 0 80 80"><g stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"><rect x="20" y="10" width="8" height="30" rx="3" fill="#F5C26B"/><rect x="31" y="6" width="8" height="34" rx="3" fill="#F5C26B"/><rect x="42" y="10" width="8" height="30" rx="3" fill="#F5C26B"/><rect x="53" y="14" width="8" height="26" rx="3" fill="#F5C26B"/><path d="M14 36 H66 L60 74 H20Z" fill="#E8673C"/></g></symbol><symbol id="i-nugget" viewBox="0 0 80 80"><g stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"><path d="M10 40 Q8 22 26 22 Q40 14 50 26 Q66 28 62 44 Q60 58 42 58 Q24 64 10 40Z" fill="#F5C26B"/><path d="M40 52 Q44 40 58 40 Q72 42 70 56 Q66 68 52 66 Q42 66 40 52Z" fill="#E9A84B"/></g></symbol><symbol id="i-cup" viewBox="0 0 80 80"><path d="M58 30 Q74 30 74 44 Q74 58 56 58" fill="none" stroke="#2D3B55" stroke-width="3"/><path d="M14 28 H58 L54 62 Q53 70 45 70 H27 Q19 70 18 62Z" fill="#fff" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><path d="M17 40 H55" stroke="#E8673C" stroke-width="5"/><path d="M28 6 Q22 14 28 20 M40 6 Q34 14 40 20" fill="none" stroke="#E8673C" stroke-width="3" stroke-linecap="round"/></symbol><symbol id="i-frappe" viewBox="0 0 80 80"><path d="M22 20 Q40 -2 58 20Z" fill="#fff" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><rect x="18" y="20" width="44" height="6" rx="3" fill="#E8673C" stroke="#2D3B55" stroke-width="3"/><path d="M20 28 H60 L55 70 H25Z" fill="#FFC9A8" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><path d="M47 8 L52 0" stroke="#2D3B55" stroke-width="4" stroke-linecap="round"/></symbol><symbol id="i-tea" viewBox="0 0 80 80"><rect x="14" y="14" width="52" height="7" rx="3.5" fill="#fff" stroke="#2D3B55" stroke-width="3"/><path d="M18 22 H62 L56 72 H24Z" fill="#E6C9A8" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><path d="M44 2 L40 40" stroke="#E8673C" stroke-width="4" stroke-linecap="round"/></symbol><symbol id="i-pearl" viewBox="0 0 80 80"><rect x="14" y="14" width="52" height="7" rx="3.5" fill="#fff" stroke="#2D3B55" stroke-width="3"/><path d="M18 22 H62 L56 72 H24Z" fill="#E6C9A8" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><g fill="#2D3B55"><circle cx="31" cy="64" r="4.5"/><circle cx="41" cy="65" r="4.5"/><circle cx="50" cy="64" r="4.5"/><circle cx="36" cy="56" r="4.5"/><circle cx="46" cy="56" r="4.5"/></g><path d="M44 2 L40 40" stroke="#E8673C" stroke-width="4" stroke-linecap="round"/></symbol><symbol id="i-chicken" viewBox="0 0 80 80"><g stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"><path d="M44 14 Q70 14 68 38 Q66 56 46 50 Q30 46 34 28 Q36 14 44 14Z" fill="#F5C26B"/><path d="M38 46 L16 66" stroke-linecap="round" stroke-width="6" fill="none"/><circle cx="13" cy="64" r="6" fill="#fff"/><circle cx="20" cy="70" r="6" fill="#fff"/></g></symbol><symbol id="i-bottle" viewBox="0 0 80 80"><rect x="32" y="4" width="16" height="10" rx="3" fill="#E8673C" stroke="#2D3B55" stroke-width="3"/><path d="M33 14 H47 Q56 26 56 36 V68 Q56 76 48 76 H32 Q24 76 24 68 V36 Q24 26 33 14Z" fill="#E9F3FB" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><path d="M24 38 H56 V62 H24Z" fill="#E8673C" opacity=".85"/></symbol><symbol id="i-gratin" viewBox="0 0 80 80"><path d="M8 40 H72 Q70 66 40 66 Q10 66 8 40Z" fill="#fff" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><path d="M12 40 Q16 22 40 22 Q64 22 68 40Z" fill="#F5C26B" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><circle cx="30" cy="31" r="3.5" fill="#E8673C"/><circle cx="46" cy="29" r="3.5" fill="#E8673C"/><circle cx="56" cy="35" r="3" fill="#E8673C"/></symbol><symbol id="i-salad" viewBox="0 0 80 80"><path d="M8 38 H72 Q70 68 40 68 Q10 68 8 38Z" fill="#fff" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><g stroke="#2D3B55" stroke-width="3"><circle cx="26" cy="30" r="10" fill="#8FD9A8"/><circle cx="42" cy="26" r="11" fill="#6BC48A"/><circle cx="55" cy="33" r="8" fill="#8FD9A8"/></g><circle cx="48" cy="40" r="5" fill="#E8673C"/></symbol><symbol id="i-ramen" viewBox="0 0 80 80"><path d="M8 36 H72 Q70 68 40 68 Q10 68 8 36Z" fill="#E8673C" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><path d="M14 36 Q20 24 28 36 Q34 24 42 36 Q48 24 56 36 Q62 24 68 36" fill="none" stroke="#F5C26B" stroke-width="5" stroke-linecap="round"/><circle cx="52" cy="30" r="9" fill="#fff" stroke="#2D3B55" stroke-width="3"/><circle cx="52" cy="30" r="4" fill="#F5C26B"/><path d="M20 6 L40 30 M28 4 L46 28" stroke="#2D3B55" stroke-width="3" stroke-linecap="round"/></symbol><symbol id="i-onigiri" viewBox="0 0 80 80"><path d="M40 8 Q46 8 52 18 L70 56 Q74 68 62 70 H18 Q6 68 10 56 L28 18 Q34 8 40 8Z" fill="#fff" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><path d="M24 50 H56 L60 70 H20Z" fill="#2D3B55"/><circle cx="40" cy="34" r="6" fill="#F08A7C"/></symbol><symbol id="i-soba" viewBox="0 0 80 80"><rect x="10" y="40" width="60" height="30" rx="4" fill="#E6C9A8" stroke="#2D3B55" stroke-width="3"/><path d="M10 50 H70 M10 60 H70" stroke="#2D3B55" stroke-width="2"/><path d="M18 40 Q20 22 28 20 M30 40 Q32 20 40 18 M42 40 Q44 20 52 20 M54 40 Q56 22 64 24" fill="none" stroke="#B9A07A" stroke-width="4" stroke-linecap="round"/></symbol><symbol id="i-plate" viewBox="0 0 80 80"><ellipse cx="40" cy="48" rx="34" ry="16" fill="#fff" stroke="#2D3B55" stroke-width="3"/><ellipse cx="40" cy="46" rx="22" ry="9" fill="#FFC9A8"/><circle cx="34" cy="38" r="8" fill="#8FD9A8" stroke="#2D3B55" stroke-width="2.5"/><circle cx="48" cy="40" r="7" fill="#E8673C" stroke="#2D3B55" stroke-width="2.5"/></symbol><symbol id="i-cake" viewBox="0 0 80 80"><path d="M10 40 H70 V68 Q70 72 66 72 H14 Q10 72 10 68Z" fill="#FFC9A8" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><path d="M10 40 Q14 28 24 34 Q30 24 40 32 Q50 24 56 34 Q66 28 70 40Z" fill="#fff" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><circle cx="40" cy="22" r="7" fill="#E0503A" stroke="#2D3B55" stroke-width="3"/></symbol><symbol id="i-bun" viewBox="0 0 80 80"><path d="M8 50 Q8 18 40 18 Q72 18 72 50 Q72 68 56 68 H24 Q8 68 8 50Z" fill="#FFF3DD" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><path d="M30 24 Q34 34 28 42 M50 24 Q46 34 52 42" fill="none" stroke="#2D3B55" stroke-width="2.5" stroke-linecap="round"/><rect x="22" y="62" width="36" height="10" rx="2" fill="#F5C26B" stroke="#2D3B55" stroke-width="3"/></symbol><symbol id="i-donut" viewBox="0 0 80 80"><circle cx="40" cy="40" r="30" fill="#C98B5A" stroke="#2D3B55" stroke-width="3"/><circle cx="40" cy="40" r="26" fill="#FFC9A8"/><circle cx="40" cy="40" r="9" fill="#FFF4E3" stroke="#2D3B55" stroke-width="3"/><g stroke-linecap="round" stroke-width="3"><path d="M24 30 l5 -2" stroke="#8FD9A8"/><path d="M52 24 l5 3" stroke="#F5C26B"/><path d="M54 52 l5 -2" stroke="#8FD9A8"/><path d="M26 54 l4 3" stroke="#F5C26B"/><path d="M40 20 v5" stroke="#fff"/></g></symbol><symbol id="i-glass" viewBox="0 0 80 80"><path d="M22 12 H58 L54 70 H26Z" fill="#fff" stroke="#2D3B55" stroke-width="3" stroke-linejoin="round"/><path d="M24 34 H56 L54 70 H26Z" fill="#FFC9A8"/><rect x="30" y="38" width="9" height="9" rx="2" fill="#fff" opacity=".8"/><rect x="42" y="50" width="9" height="9" rx="2" fill="#fff" opacity=".8"/><path d="M48 4 L44 34" stroke="#E8673C" stroke-width="4" stroke-linecap="round"/></symbol></defs></svg>
 <div class="wrap">
   <p style="margin:0;font-size:13px"><a href="./" style="color:var(--accent)">← 基礎代謝量・消費カロリー計算ツールへ</a></p>
   <p style="margin:10px 0 0;font-size:12px;font-weight:700;color:var(--accent)">● がんばラン部｜ゆる我慢ダイエット</p>
@@ -74,6 +78,7 @@ input[type=number]{width:72px}
   <p class="lead">ファストフード・牛丼・主食・麺に加えて、サイゼリヤ、ミスド、スタバ、タリーズ、スイーツ、コンビニの売れ筋（おにぎり、ホットスナック、中華まん、カップ麺、弁当、おでん）まで約160品目。タップで絞り込み、並べ替えできます。</p>
 
   <a class="notelink" href="https://note.com/ganbarunbu/n/nd939b85e3b99" target="_blank" rel="noopener">
+    <div class="nl-ic" aria-hidden="true"><svg class="ic"><use href="#i-burger"/></svg><svg class="ic"><use href="#i-frappe"/></svg><svg class="ic"><use href="#i-pearl"/></svg><svg class="ic"><use href="#i-chicken"/></svg><svg class="ic"><use href="#i-bottle"/></svg></div>
     <b>「食べたいものを、がんばらずに選ぶために」カロリーまとめ（note）</b>
     <span>スタバ・Gong cha・サイゼリヤ・コンビニ・ペットボトル・エナジードリンク・調味料まで、保存版の早見表をnoteにまとめました。</span>
     <em>noteで読む →</em>
@@ -81,24 +86,24 @@ input[type=number]{width:72px}
 
   <h2>え、そうなの？ 意外ポイント</h2>
   <div class="cards">
-    <div class="card"><b>ポテトL ≒ ビッグマック</b><div class="vs">517 vs 525</div><p>マックのポテトLは、ビッグマックとほぼ同じ。ハンバーガー(259)の約2倍です。</p></div>
-    <div class="card"><b>ビッグマック &lt; 牛丼並盛</b><div class="vs">525 vs 733</div><p>すき家の牛丼並盛は、ビッグマックより約200kcal高い。吉野家(633)でも100kcal上です。</p></div>
-    <div class="card"><b>チーズ牛丼は900超え</b><div class="vs">911 / 901</div><p>すき家のチーズ牛丼と松屋のチーズ牛めしは、並盛でも900kcal前後。</p></div>
-    <div class="card"><b>小盛・ミニで大きく減る</b><div class="vs">733 → 496</div><p>すき家はミニで237kcal減。松屋は小盛で188、吉野家は小盛で144減ります。</p></div>
-    <div class="card"><b>野菜のツイスターでも</b><div class="vs">360</div><p>ケンタのてりやきツイスターは360kcal。オリジナルチキン1ピース(218)より高い。</p></div>
-    <div class="card"><b>サラダは10kcal</b><div class="vs">10 vs 146</div><p>マックのサイドサラダは10kcal。ソフトツイストは146kcalで15倍近く。</p></div>
-    <div class="card"><b>うどん1玉はご飯1膳より軽い</b><div class="vs">190 vs 234</div><p>ゆでうどん200gは190kcal、ご飯150gは234kcal。100g比べでも95対156です。</p></div>
-    <div class="card"><b>食パンは100gならご飯の1.6倍</b><div class="vs">248 vs 156</div><p>重さ当たりでは食パンが高め。ただし6枚切1枚(60g)は約149kcalです。</p></div>
-    <div class="card"><b>フラペチーノは飲み物でも重い</b><div class="vs">438 vs 310</div><p>スタバのアフォガート フラペチーノ(トール)は、マックのチーズバーガーより高い。ブラックのドリップは18kcalです。</p></div>
-    <div class="card"><b>カルボナーラは牛丼並盛超え</b><div class="vs">737 vs 733</div><p>サイゼリヤのカルボナーラは、すき家の牛丼並盛よりわずかに高い。ミラノ風ドリア(550)はビッグマック並みです。</p></div>
-    <div class="card"><b>ドーナツは2倍以上の差</b><div class="vs">148 → 342</div><p>ミスドのフレンチクルーラーとオールドファッション ハニーでは、2倍以上違います。</p></div>
-    <div class="card"><b>ショートケーキは意外と軽め</b><div class="vs">275 vs 410</div><p>ケーキ1個(目安)は、マックのポテトMより低い。生クリームの量で上下します。</p></div>
-    <div class="card"><b>タピオカだけで78kcal</b><div class="vs">312 → 426</div><p>TeaWayのミルクティーは、タピオカを足すと300kcal超え。キャラメル系だと400kcal超えです。</p></div>
-    <div class="card"><b>ファミチキ &gt; ケンタのチキン</b><div class="vs">251 vs 218</div><p>ファミチキ1個は、ケンタッキーのオリジナルチキン1ピースより高い。ハバネロホットは263、甘辛味は308です。</p></div>
-    <div class="card"><b>カップ麺の特盛は牛丼超え</b><div class="vs">684 vs 633</div><p>どん兵衛 天ぷらそば特盛は、吉野家の牛丼並盛より高い。通常サイズは448kcalです。</p></div>
-    <div class="card"><b>肉まんは種類で157kcal差</b><div class="vs">205 → 362</div><p>セブンのふんわり肉まんと大入り豚まんでは、約1.8倍違います。</p></div>
-    <div class="card"><b>おでん大根は12kcal</b><div class="vs">12 vs 251</div><p>おでんの大根1個は12kcalで、ファミチキの20分の1ほど。こんにゃくは3〜5kcalです。</p></div>
-    <div class="card"><b>二郎系は牛丼2.7杯ぶん</b><div class="vs">約1,720</div><p>標準的な二郎の推定値。大だと約2,300kcalという推定もあります。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-fries"/></svg>ポテトL ≒ ビッグマック</b><div class="vs">517 vs 525</div><p>マックのポテトLは、ビッグマックとほぼ同じ。ハンバーガー(259)の約2倍です。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-burger"/></svg>ビッグマック &lt; 牛丼並盛</b><div class="vs">525 vs 733</div><p>すき家の牛丼並盛は、ビッグマックより約200kcal高い。吉野家(633)でも100kcal上です。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-plate"/></svg>チーズ牛丼は900超え</b><div class="vs">911 / 901</div><p>すき家のチーズ牛丼と松屋のチーズ牛めしは、並盛でも900kcal前後。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-plate"/></svg>小盛・ミニで大きく減る</b><div class="vs">733 → 496</div><p>すき家はミニで237kcal減。松屋は小盛で188、吉野家は小盛で144減ります。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-chicken"/></svg>野菜のツイスターでも</b><div class="vs">360</div><p>ケンタのてりやきツイスターは360kcal。オリジナルチキン1ピース(218)より高い。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-salad"/></svg>サラダは10kcal</b><div class="vs">10 vs 146</div><p>マックのサイドサラダは10kcal。ソフトツイストは146kcalで15倍近く。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-soba"/></svg>うどん1玉はご飯1膳より軽い</b><div class="vs">190 vs 234</div><p>ゆでうどん200gは190kcal、ご飯150gは234kcal。100g比べでも95対156です。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-bun"/></svg>食パンは100gならご飯の1.6倍</b><div class="vs">248 vs 156</div><p>重さ当たりでは食パンが高め。ただし6枚切1枚(60g)は約149kcalです。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-frappe"/></svg>フラペチーノは飲み物でも重い</b><div class="vs">438 vs 310</div><p>スタバのアフォガート フラペチーノ(トール)は、マックのチーズバーガーより高い。ブラックのドリップは18kcalです。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-gratin"/></svg>カルボナーラは牛丼並盛超え</b><div class="vs">737 vs 733</div><p>サイゼリヤのカルボナーラは、すき家の牛丼並盛よりわずかに高い。ミラノ風ドリア(550)はビッグマック並みです。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-donut"/></svg>ドーナツは2倍以上の差</b><div class="vs">148 → 342</div><p>ミスドのフレンチクルーラーとオールドファッション ハニーでは、2倍以上違います。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-cake"/></svg>ショートケーキは意外と軽め</b><div class="vs">275 vs 410</div><p>ケーキ1個(目安)は、マックのポテトMより低い。生クリームの量で上下します。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-pearl"/></svg>タピオカだけで78kcal</b><div class="vs">312 → 426</div><p>TeaWayのミルクティーは、タピオカを足すと300kcal超え。キャラメル系だと400kcal超えです。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-chicken"/></svg>ファミチキ &gt; ケンタのチキン</b><div class="vs">251 vs 218</div><p>ファミチキ1個は、ケンタッキーのオリジナルチキン1ピースより高い。ハバネロホットは263、甘辛味は308です。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-ramen"/></svg>カップ麺の特盛は牛丼超え</b><div class="vs">684 vs 633</div><p>どん兵衛 天ぷらそば特盛は、吉野家の牛丼並盛より高い。通常サイズは448kcalです。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-bun"/></svg>肉まんは種類で157kcal差</b><div class="vs">205 → 362</div><p>セブンのふんわり肉まんと大入り豚まんでは、約1.8倍違います。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-plate"/></svg>おでん大根は12kcal</b><div class="vs">12 vs 251</div><p>おでんの大根1個は12kcalで、ファミチキの20分の1ほど。こんにゃくは3〜5kcalです。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-ramen"/></svg>二郎系は牛丼2.7杯ぶん</b><div class="vs">約1,720</div><p>標準的な二郎の推定値。大だと約2,300kcalという推定もあります。</p></div>
   </div>
 
   <h2>全部ならべてみる</h2>
@@ -122,6 +127,7 @@ input[type=number]{width:72px}
     数値は1食・1個あたりのkcalです。マクドナルド・ケンタッキー・モス・牛丼3社は各社公表値をまとめた情報（fatsecret、各種カロリー比較記事、吉野家の公式PDFなど）、主食は文部科学省「日本食品標準成分表2020年版（八訂）」の100g値から一般的な1人前の重さで計算した目安です。スタバはトールサイズ、タピオカ系は2022年のTeaWay公表値で、サイズは店により違います。ケーキ・パンケーキ・ソフトクリームは一般的な目安で、商品ごとに大きく変わります。コンビニ商品は発売年によって数値が変わるため、補足欄に時点を入れています。コンビニ弁当は目安です。メニューや量は改定されるので、最新は各社の公式栄養成分表で確認してください。「推定」は公式値ではありません。
   </p>
   <a class="notelink" href="https://note.com/ganbarunbu/n/nd939b85e3b99" target="_blank" rel="noopener">
+    <div class="nl-ic" aria-hidden="true"><svg class="ic"><use href="#i-burger"/></svg><svg class="ic"><use href="#i-frappe"/></svg><svg class="ic"><use href="#i-pearl"/></svg><svg class="ic"><use href="#i-chicken"/></svg><svg class="ic"><use href="#i-bottle"/></svg></div>
     <b>この表の読み方と、選び方のコツはnoteに</b>
     <span>スタバ・Gong cha・サイゼリヤ・コンビニ・ペットボトル・エナジードリンク・調味料まで、保存版の早見表をnoteにまとめました。</span>
     <em>noteで読む →</em>
@@ -338,6 +344,18 @@ CATS.forEach(c=>{
 });
 ["q","sort","w","t"].forEach(id=>$(id).addEventListener("input",render));
 
+function iconFor(n,c){
+  if(c==="バーガー") return "burger";
+  if(c==="チキン・サイド"){ if(/ポテト|フライ/.test(n)) return "fries"; if(/サラダ|スロー/.test(n)) return "salad"; if(/ナゲット/.test(n)) return "nugget"; if(/ソフト|パイ|ビスケット/.test(n)) return "cake"; return "chicken"; }
+  if(c==="牛丼・丼") return "plate";
+  if(c==="主食"){ if(/うどん|そば|麺|パスタ/.test(n)) return "soba"; if(/パン/.test(n)) return "bun"; return "onigiri"; }
+  if(c==="麺・ラーメン") return "ramen";
+  if(c==="パスタ・ピザ") return "gratin";
+  if(c==="スイーツ・パン"){ if(/ドーナツ|クルーラー|オールド|ポン/.test(n)) return "donut"; if(/パン|ロール/.test(n)) return "bun"; return "cake"; }
+  if(c==="甘い飲み物"){ if(/タピオカ/.test(n)) return "pearl"; if(/コーラ|ペプシ|レモネード/.test(n)) return "bottle"; if(/フラペ/.test(n)) return "frappe"; if(/ラテ|カフェ|コーヒー/.test(n)) return "cup"; return "tea"; }
+  if(c==="コンビニ"){ if(/おにぎり|むすび/.test(n)) return "onigiri"; if(/チキン|チキ|からあげ|唐揚/.test(n)) return "chicken"; if(/まん/.test(n)) return "bun"; if(/麺|うどん|そば|ラーメン|どん兵衛|カップ/.test(n)) return "ramen"; if(/サラダ/.test(n)) return "salad"; if(/パン|ケーキ|シュー|ドーナツ|プリン|アイス/.test(n)) return "cake"; return "plate"; }
+  return "plate";
+}
 function fmt(n){ return n.toLocaleString("ja-JP"); }
 function render(){
   const q = $("q").value.trim();
@@ -356,7 +374,7 @@ function render(){
     const tdee = +$("t").value;
     const pctDay = tdee >= 800 ? `1日の${Math.round(d[3]/tdee*100)}% ／ ` : "";
     return `<div class="row">
-      <div class="name">${d[0]}<small>${d[1]}${d[4]?"・"+d[4]:""}</small></div>
+      <div class="name"><svg class="ic" aria-hidden="true"><use href="#i-${iconFor(d[0],d[2])}"/></svg>${d[0]}<small>${d[1]}${d[4]?"・"+d[4]:""}</small></div>
       <div class="kcal">${fmt(d[3])}<span>kcal${over}</span></div>
       <div class="bar" role="img" aria-label="${d[0]} ${d[3]}kcal"><i style="width:${pct}%"></i></div>
       <div class="meta"><span>${tag}</span><span>${pctDay}ランニング換算 約${km}km</span></div>
