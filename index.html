@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>簡単！基礎代謝量計算ツール</title>
+    <title>簡単！基礎代謝量・消費カロリー計算ツール</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -12,7 +12,7 @@
     <!-- ヘッダー -->
     <header class="bg-white shadow-sm py-4">
         <div class="max-w-md mx-auto px-4 text-center">
-            <h1 class="text-xl font-bold text-indigo-600">基礎代謝量 計算ツール</h1>
+            <h1 class="text-xl font-bold text-indigo-600">基礎代謝量・消費カロリー計算ツール</h1>
             <p class="text-xs text-gray-500 mt-1">毎日の体づくりやダイエットの基準に</p>
         </div>
     </header>
@@ -39,54 +39,79 @@
                 <!-- 体重 -->
                 <div>
                     <label for="weight" class="block text-sm font-medium text-gray-700 mb-1">体重 (kg)</label>
-                    <input type="number" id="weight" step="0.1" required placeholder="例: 65"
+                    <input type="text" id="weight" inputmode="decimal" required placeholder="例: 65"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <span class="text-[10px] text-gray-400">※半角数字で入力してください</span>
                 </div>
 
                 <!-- 身長 -->
                 <div>
                     <label for="height" class="block text-sm font-medium text-gray-700 mb-1">身長 (cm)</label>
-                    <input type="number" id="height" step="0.1" required placeholder="例: 170"
+                    <input type="text" id="height" inputmode="decimal" required placeholder="例: 170"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <span class="text-[10px] text-gray-400">※半角数字で入力してください</span>
                 </div>
 
                 <!-- 年齢 -->
                 <div>
                     <label for="age" class="block text-sm font-medium text-gray-700 mb-1">年齢 (歳)</label>
-                    <input type="number" id="age" required placeholder="例: 28"
+                    <input type="text" id="age" inputmode="numeric" required placeholder="例: 28"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <span class="text-[10px] text-gray-400">※半角数字で入力してください</span>
+                </div>
+
+                <!-- 運動量 -->
+                <div>
+                    <label for="activity" class="block text-sm font-medium text-gray-700 mb-1">毎日の運動量</label>
+                    <select id="activity" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+                        <option value="1.2">ほとんど運動しない（デスクワーク中心）</option>
+                        <option value="1.375">軽い運動（週1〜2回程度・軽い散歩など）</option>
+                        <option value="1.55" selected>中程度の運動（週3〜5回程度・ランニングやジム）</option>
+                        <option value="1.725">激しい運動（週6〜7回・ハードなトレーニング）</option>
+                    </select>
                 </div>
 
                 <!-- 計算ボタン -->
                 <button type="submit"
                     class="w-full bg-indigo-600 text-white font-medium py-2.5 rounded-lg hover:bg-indigo-700 transition duration-200 shadow-md">
-                    基礎代謝を計算する
+                    代謝・消費カロリーを計算する
                 </button>
             </form>
 
             <!-- 計算結果表示エリア（初期は非表示） -->
-            <div id="resultArea" class="mt-6 pt-6 border-t border-gray-100 hidden">
-                <h2 class="text-sm font-medium text-gray-500 text-center">あなたの1日の基礎代謝量</h2>
-                <div class="text-center mt-2">
-                    <span id="bmrValue" class="text-4xl font-extrabold text-indigo-600">0</span>
-                    <span class="text-lg font-medium text-gray-600 ml-1">kcal</span>
+            <div id="resultArea" class="mt-6 pt-6 border-t border-gray-100 hidden space-y-4">
+                <div class="text-center">
+                    <h2 class="text-xs font-medium text-gray-500">あなたの1日の基礎代謝量</h2>
+                    <div class="mt-1">
+                        <span id="bmrValue" class="text-3xl font-extrabold text-indigo-600">0</span>
+                        <span class="text-sm font-medium text-gray-600 ml-1">kcal</span>
+                    </div>
                 </div>
-                <p class="text-xs text-gray-400 text-center mt-2">
-                    ※ハリス・ベネディクト方程式（標準式）に基づいて算出しています。
+
+                <div class="bg-indigo-50 rounded-xl p-4 text-center">
+                    <h2 class="text-xs font-medium text-indigo-700">1日の総消費カロリー（運動量込み）</h2>
+                    <div class="mt-1">
+                        <span id="tdeeValue" class="text-4xl font-extrabold text-indigo-700">0</span>
+                        <span class="text-sm font-medium text-indigo-600 ml-1">kcal</span>
+                    </div>
+                    <p class="text-[10px] text-indigo-500 mt-1">※維持カロリーの目安になります</p>
+                </div>
+
+                <p class="text-[10px] text-gray-400 text-center">
+                    ※ハリス・ベネディクト方程式に基づいて算出しています。
                 </p>
             </div>
         </div>
 
-        <!-- ★ アフィリエイトバナー配置エリア ★ -->
+        <!-- アフィリエイトバナー配置エリア -->
         <div class="mt-6 bg-white rounded-2xl shadow-md p-4 text-center">
             <p class="text-xs text-gray-400 mb-2">おすすめの関連サービス・プロテイン</p>
-            
-            <!-- ▼▼▼ A8.netからコピーしたコードをここに貼り付ける ▼▼▼ -->
             <div style="font-size:12px; color:#888;">
                 （ここにA8.netのHTMLタグやバナーコードを貼り付けます）
             </div>
-            <!-- ▲▲▲ ここまで ▲▲▲ -->
-
         </div>
     </main>
 
@@ -102,6 +127,7 @@
         const form = document.getElementById('bmrForm');
         const resultArea = document.getElementById('resultArea');
         const bmrValue = document.getElementById('bmrValue');
+        const tdeeValue = document.getElementById('tdeeValue');
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -110,20 +136,22 @@
             const weight = parseFloat(document.getElementById('weight').value);
             const height = parseFloat(document.getElementById('height').value);
             const age = parseInt(document.getElementById('age').value);
+            const activity = parseFloat(document.getElementById('activity').value);
 
             let bmr = 0;
 
             // ハリス・ベネディクト方程式
             if (gender === 'male') {
-                // 男性: 66.5 + (13.7 × 体重) + (5.0 × 身長) - (6.8 × 年齢)
                 bmr = 66.5 + (13.7 * weight) + (5.0 * height) - (6.8 * age);
             } else {
-                // 女性: 655.1 + (9.6 × 体重) + (1.7 × 身長) - (4.7 × 年齢)
                 bmr = 655.1 + (9.6 * weight) + (1.7 * height) - (4.7 * age);
             }
 
-            // 四捨五入して表示
+            // 総消費カロリー（TDEE）の計算
+            const tdee = bmr * activity;
+
             bmrValue.textContent = Math.round(bmr);
+            tdeeValue.textContent = Math.round(tdee);
             resultArea.classList.remove('hidden');
         });
     </script>
