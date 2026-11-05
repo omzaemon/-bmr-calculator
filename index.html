@@ -102,6 +102,7 @@
             </form>
 
             <!-- 計算結果表示エリア（初期は非表示） -->
+            <p id="inputError" class="hidden mt-4 text-sm text-center text-[#B84822] bg-[#FFF1EA] rounded-lg py-2 px-3"></p>
             <div id="resultArea" class="mt-6 pt-6 border-t border-gray-100 hidden space-y-4">
                 <div class="text-center">
                     <h2 class="text-xs font-medium text-gray-500">あなたの1日の基礎代謝量</h2>
@@ -413,6 +414,20 @@
             const height = parseFloat(document.getElementById('height').value);
             const age = parseInt(document.getElementById('age').value);
             const activity = parseFloat(document.getElementById('activity').value);
+
+            // 入力チェック（「.」や「000」などの変な値は計算しない）
+            const errs = [];
+            if (!(weight >= 20 && weight <= 300)) errs.push('体重は20〜300kgの数字で入力してください');
+            if (!(height >= 80 && height <= 250)) errs.push('身長は80〜250cmの数字で入力してください');
+            if (!(age >= 10 && age <= 120)) errs.push('年齢は10〜120歳の数字で入力してください');
+            const errBox = document.getElementById('inputError');
+            if (errs.length) {
+                errBox.innerHTML = errs.join('<br>');
+                errBox.classList.remove('hidden');
+                resultArea.classList.add('hidden');
+                return;
+            }
+            errBox.classList.add('hidden');
 
             let bmr = 0;
 
