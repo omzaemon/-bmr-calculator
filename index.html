@@ -163,16 +163,12 @@
 
                 <!-- シェア用画像（身長・体重・年齢・性別は載せない） -->
                 <div class="space-y-2">
-                    <button type="button" id="shareBtn"
-                        class="w-full bg-[#8FD9A8] text-[#2D3B55] font-medium py-2.5 rounded-lg hover:bg-[#7BCD96] transition duration-200 shadow-md">
-                        📸 基礎代謝を画像にする
-                    </button>
                     <button type="button" id="rangeBtn"
                         class="w-full bg-[#FFC9A8] text-[#2D3B55] font-medium py-2.5 rounded-lg hover:bg-[#FFBA92] transition duration-200 shadow-md">
-                        📊 ダイエットレンジ表を画像にする
+                        📸 基礎代謝とダイエットレンジ表を画像にする
                     </button>
                     <p class="text-[10px] text-gray-400 text-center">
-                        ※画像に載るのはカロリーの数字だけです。身長・体重・年齢・性別は載りません。
+                        ※画像に載るのは基礎代謝とカロリーの数字だけです。身長・体重・年齢・性別は載りません。
                     </p>
 
                     <div id="sharePreview" class="hidden space-y-2">
@@ -278,104 +274,6 @@
             ctx.closePath();
         }
 
-        // シェア用画像を描く（基礎代謝量のみ）。がんばラン部のカラー
-        function drawShareCard(bmr) {
-            const W = 1080, H = 1350;
-            const NAVY = '#2D3B55', ORANGE = '#E8673C', CREAM = '#FFF4E3', PEACH = '#FFC9A8', GREEN = '#8FD9A8';
-            const canvas = document.createElement('canvas');
-            canvas.width = W; canvas.height = H;
-            const ctx = canvas.getContext('2d');
-            const font = '"Noto Sans CJK JP","Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif';
-
-            // 背景
-            ctx.fillStyle = CREAM;
-            ctx.fillRect(0, 0, W, H);
-
-            // 飾りの丸
-            ctx.globalAlpha = 0.65;
-            ctx.fillStyle = PEACH;
-            ctx.beginPath(); ctx.arc(1010, 70, 230, 0, Math.PI * 2); ctx.fill();
-            ctx.globalAlpha = 0.5;
-            ctx.fillStyle = GREEN;
-            ctx.beginPath(); ctx.arc(40, 1290, 190, 0, Math.PI * 2); ctx.fill();
-            ctx.globalAlpha = 1;
-
-            // 左上ロゴ
-            ctx.textAlign = 'left';
-            ctx.fillStyle = ORANGE;
-            ctx.beginPath(); ctx.arc(88, 92, 16, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = NAVY;
-            ctx.font = '900 44px ' + font;
-            ctx.fillText('がんばラン部', 120, 108);
-            ctx.font = '500 26px ' + font;
-            ctx.fillText('ゆる我慢ダイエット', 72, 152);
-
-            // LINE風の吹き出し
-            roundRectPath(ctx, 70, 210, 940, 170, 70);
-            ctx.fillStyle = GREEN;
-            ctx.fill();
-            ctx.beginPath();
-            ctx.moveTo(130, 370);
-            ctx.lineTo(190, 372);
-            ctx.lineTo(112, 432);
-            ctx.closePath();
-            ctx.fill();
-            ctx.textAlign = 'center';
-            ctx.fillStyle = NAVY;
-            ctx.font = '900 66px ' + font;
-            ctx.fillText('このカロリーは食べてOK！', W / 2, 314);
-
-            // 白いカード（やわらかい影）
-            ctx.save();
-            ctx.shadowColor = 'rgba(45,59,85,0.14)';
-            ctx.shadowBlur = 40;
-            ctx.shadowOffsetY = 14;
-            roundRectPath(ctx, 70, 480, 940, 590, 60);
-            ctx.fillStyle = '#ffffff';
-            ctx.fill();
-            ctx.restore();
-
-            ctx.fillStyle = NAVY;
-            ctx.font = '700 54px ' + font;
-            ctx.fillText('あなたの基礎代謝は', W / 2, 590);
-
-            // 数字＋マーカー
-            const num = bmr.toLocaleString('ja-JP');
-            ctx.font = '900 270px ' + font;
-            const tw = ctx.measureText(num).width;
-            roundRectPath(ctx, W / 2 - tw / 2 - 20, 790, tw + 40, 62, 31);
-            ctx.fillStyle = PEACH;
-            ctx.fill();
-            ctx.fillStyle = ORANGE;
-            ctx.fillText(num, W / 2, 840);
-
-            ctx.fillStyle = NAVY;
-            ctx.font = '800 76px ' + font;
-            ctx.fillText('kcal', W / 2, 950);
-
-            ctx.globalAlpha = 0.65;
-            ctx.font = '500 32px ' + font;
-            ctx.fillText('基礎代謝 = 何もしなくても1日に使うカロリー', W / 2, 1022);
-            ctx.globalAlpha = 1;
-
-            // フッター
-            ctx.fillStyle = NAVY;
-            ctx.font = '900 58px ' + font;
-            ctx.fillText('痩せ方より、続け方。', W / 2, 1170);
-            ctx.fillStyle = ORANGE;
-            ctx.font = '800 40px ' + font;
-            ctx.fillText('@ganbarunbu', W / 2, 1232);
-            ctx.fillStyle = NAVY;
-            ctx.globalAlpha = 0.7;
-            ctx.font = '500 28px ' + font;
-            ctx.fillText('基礎代謝電卓', W / 2, 1286);
-            ctx.font = '400 26px ' + font;
-            ctx.fillText(location.host + location.pathname.replace(/index\.html$/, ''), W / 2, 1326);
-            ctx.globalAlpha = 1;
-
-            return canvas;
-        }
-
         // ダイエットレンジ表（横棒）。基礎代謝・総消費カロリーの数字だけ載せる
         function drawRangeCard(bmr, tdee) {
             const W = 1080, H = 1350;
@@ -408,11 +306,18 @@
             ctx.fillStyle = NAVY; ctx.font = '900 44px ' + font; ctx.fillText('がんばラン部', 120, 108);
             ctx.font = '500 26px ' + font; ctx.fillText('ゆる我慢ダイエット', 72, 152);
 
-            // 吹き出し
-            roundRectPath(ctx, 70, 200, 940, 140, 60); ctx.fillStyle = GREEN; ctx.fill();
-            ctx.beginPath(); ctx.moveTo(130, 330); ctx.lineTo(190, 332); ctx.lineTo(112, 388); ctx.closePath(); ctx.fill();
-            ctx.textAlign = 'center'; ctx.fillStyle = NAVY; ctx.font = '900 60px ' + font;
-            ctx.fillText('どこまで食べていい？', W / 2, 292);
+            // 吹き出し（基礎代謝）
+            roundRectPath(ctx, 70, 190, 940, 230, 70); ctx.fillStyle = GREEN; ctx.fill();
+            ctx.beginPath(); ctx.moveTo(130, 410); ctx.lineTo(190, 412); ctx.lineTo(112, 468); ctx.closePath(); ctx.fill();
+            ctx.textAlign = 'center'; ctx.fillStyle = NAVY; ctx.font = '700 40px ' + font;
+            ctx.fillText('あなたの基礎代謝は', W / 2, 252);
+            const num = fmt(bmr);
+            ctx.font = '900 118px ' + font;
+            const tw = ctx.measureText(num).width;
+            ctx.fillStyle = ORANGE; ctx.textAlign = 'center';
+            ctx.fillText(num, W / 2 - 60, 372);
+            ctx.fillStyle = NAVY; ctx.font = '800 50px ' + font; ctx.textAlign = 'left';
+            ctx.fillText('kcal', W / 2 - 60 + tw / 2 + 14, 372);
 
             // 横棒（ゾーン別）
             const zones = [
@@ -422,7 +327,7 @@
                 { a: b2, b: b3, c: SAND },
                 { a: b3, b: hi, c: ORANGE }
             ];
-            const BY = 440, BH = 96;
+            const BY = 500, BH = 86;
             ctx.save();
             roundRectPath(ctx, X0, BY, X1 - X0, BH, 48); ctx.clip();
             zones.forEach(z => { ctx.fillStyle = z.c; ctx.fillRect(xs(z.a), BY, xs(z.b) - xs(z.a) + 1, BH); });
@@ -451,7 +356,7 @@
                 { c: SAND, e: '\u2696\uFE0F', n: '現状維持', r: fmt(b2) + ' 〜 ' + fmt(b3) + ' kcal' },
                 { c: ORANGE, e: '\u{1F354}', n: 'オーバーカロリー', r: fmt(b3 + 1) + ' kcal 〜' }
             ];
-            let y = 705;
+            let y = 740;
             rows.forEach((o, i) => {
                 const green = i === 2;
                 if (green) { roundRectPath(ctx, 60, y - 40, 960, 72, 36); ctx.fillStyle = '#fff'; ctx.fill(); }
@@ -463,13 +368,13 @@
                 ctx.fillText(o.n, 186, y + 8);
                 ctx.textAlign = 'right'; ctx.font = '800 36px ' + font;
                 ctx.fillText(o.r, 990, y + 8);
-                y += 84;
+                y += 74;
             });
 
             ctx.textAlign = 'center'; ctx.fillStyle = NAVY; ctx.globalAlpha = 0.7;
             ctx.font = '500 26px ' + font;
-            ctx.fillText('あくまで目安です。基礎代謝を下回らないのが目安。', W / 2, 1128);
-            ctx.fillText('体調や持病がある方は医師に相談してね', W / 2, 1166);
+            ctx.fillText('あくまで目安です。基礎代謝を下回らないのが目安。', W / 2, 1138);
+            ctx.fillText('体調や持病がある方は医師に相談してね', W / 2, 1174);
             ctx.globalAlpha = 1;
 
             // フッター
@@ -493,13 +398,9 @@
             }, 'image/png');
         }
 
-        document.getElementById('shareBtn').addEventListener('click', function() {
-            if (!lastResult) return;
-            showCanvas(drawShareCard(lastResult.bmr), 'kisotaisha.png');
-        });
         document.getElementById('rangeBtn').addEventListener('click', function() {
             if (!lastResult) return;
-            showCanvas(drawRangeCard(lastResult.bmr, lastResult.tdee), 'diet-range.png');
+            showCanvas(drawRangeCard(lastResult.bmr, lastResult.tdee), 'kisotaisha.png');
         });
 
         form.addEventListener('submit', function(e) {
