@@ -162,22 +162,15 @@
 
                 <!-- シェア用画像（身長・体重・年齢・性別は載せない） -->
                 <div class="space-y-2">
-                    <button type="button" id="rangeBtn"
-                        class="w-full bg-[#FFC9A8] text-[#2D3B55] font-medium py-2.5 rounded-lg hover:bg-[#FFBA92] transition duration-200 shadow-md">
-                        📸 基礎代謝とダイエットレンジ表を画像にする
-                    </button>
-                    <p class="text-[10px] text-gray-400 text-center">
-                        ※画像に載るのは基礎代謝とカロリーの数字だけです。身長・体重・年齢・性別は載りません。
-                    </p>
-
-                    <div id="sharePreview" class="hidden space-y-2">
+                    
+                    <div id="sharePreview" class="space-y-2">
                         <img id="shareImg" alt="シェア用画像" class="w-full rounded-xl shadow-md">
                         <a id="saveLink" download="kisotaisha.png"
                             class="block text-center bg-[#CF5428] text-white text-sm font-medium py-2.5 rounded-lg hover:bg-[#B84822]">
                             画像を保存
                         </a>
                         <p class="text-[10px] text-gray-400 text-center">
-                            ※保存できない場合は、画像を長押ししてください。
+                            ※保存できない場合は、画像を長押ししてください。画像に載るのは基礎代謝とカロリーの数字だけで、身長・体重・年齢・性別は載りません。
                         </p>
                     </div>
                 </div>
@@ -409,14 +402,8 @@
                 shareImg.src = shareUrl;
                 saveLink.href = shareUrl;
                 saveLink.download = fileName;
-                sharePreview.classList.remove('hidden');
             }, 'image/png');
         }
-
-        document.getElementById('rangeBtn').addEventListener('click', function() {
-            if (!lastResult) return;
-            showCanvas(drawRangeCard(lastResult.bmr, lastResult.tdee), 'kisotaisha.png');
-        });
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -456,7 +443,7 @@
 
             // シェア画像用に結果だけを保持（身長・体重・年齢は保持しない）
             lastResult = { bmr: Math.round(bmr), tdee: Math.round(tdee) };
-            sharePreview.classList.add('hidden');
+            showCanvas(drawRangeCard(lastResult.bmr, lastResult.tdee), 'kisotaisha.png');
 
             // カロリー一覧表(calories.html)に引き継ぐ
             try {
