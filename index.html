@@ -329,6 +329,7 @@
             const tw = ctx.measureText(num).width;
             const kw = 130;                       // 「kcal」ぶんの幅
             const nx = W / 2 - kw / 2;            // 数字の中心
+            roundRectPath(ctx, nx - tw / 2 - 16, 372, tw + 32, 36, 18); ctx.fillStyle = '#F9C9D4'; ctx.fill();
             ctx.fillStyle = NAVY; ctx.textAlign = 'center'; ctx.fillText(num, nx, 410);
             ctx.fillStyle = NAVY; ctx.font = '800 54px ' + font; ctx.textAlign = 'left';
             ctx.fillText('kcal', nx + tw / 2 + 18, 410);
