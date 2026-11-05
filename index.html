@@ -210,51 +210,99 @@
             ctx.closePath();
         }
 
-        // シェア用画像を描く（基礎代謝量のみ）
+        // シェア用画像を描く（基礎代謝量のみ）。がんばラン部のカラー
         function drawShareCard(bmr) {
             const W = 1080, H = 1350;
+            const NAVY = '#2D3B55', ORANGE = '#E8673C', CREAM = '#FFF4E3', PEACH = '#FFC9A8', GREEN = '#8FD9A8';
             const canvas = document.createElement('canvas');
             canvas.width = W; canvas.height = H;
             const ctx = canvas.getContext('2d');
-            const font = '"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif';
+            const font = '"Noto Sans CJK JP","Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif';
 
-            const g = ctx.createLinearGradient(0, 0, W, H);
-            g.addColorStop(0, '#4f46e5');
-            g.addColorStop(1, '#a855f7');
-            ctx.fillStyle = g;
+            // 背景
+            ctx.fillStyle = CREAM;
             ctx.fillRect(0, 0, W, H);
 
-            ctx.textAlign = 'center';
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '800 76px ' + font;
-            ctx.fillText('このカロリーは食べてOK！', W / 2, 190);
+            // 飾りの丸
+            ctx.globalAlpha = 0.65;
+            ctx.fillStyle = PEACH;
+            ctx.beginPath(); ctx.arc(1010, 70, 230, 0, Math.PI * 2); ctx.fill();
+            ctx.globalAlpha = 0.5;
+            ctx.fillStyle = GREEN;
+            ctx.beginPath(); ctx.arc(40, 1290, 190, 0, Math.PI * 2); ctx.fill();
+            ctx.globalAlpha = 1;
 
-            roundRectPath(ctx, 70, 290, W - 140, 760, 56);
-            ctx.fillStyle = 'rgba(255,255,255,0.96)';
+            // 左上ロゴ
+            ctx.textAlign = 'left';
+            ctx.fillStyle = ORANGE;
+            ctx.beginPath(); ctx.arc(88, 92, 16, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = NAVY;
+            ctx.font = '900 44px ' + font;
+            ctx.fillText('がんばラン部', 120, 108);
+            ctx.font = '500 26px ' + font;
+            ctx.fillText('ゆる我慢ダイエット', 72, 152);
+
+            // LINE風の吹き出し
+            roundRectPath(ctx, 70, 210, 940, 170, 70);
+            ctx.fillStyle = GREEN;
             ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(130, 370);
+            ctx.lineTo(190, 372);
+            ctx.lineTo(112, 432);
+            ctx.closePath();
+            ctx.fill();
+            ctx.textAlign = 'center';
+            ctx.fillStyle = NAVY;
+            ctx.font = '900 66px ' + font;
+            ctx.fillText('このカロリーは食べてOK！', W / 2, 314);
 
-            ctx.fillStyle = '#374151';
-            ctx.font = '700 60px ' + font;
-            ctx.fillText('あなたの基礎代謝は', W / 2, 430);
-
-            ctx.fillStyle = '#4f46e5';
-            ctx.font = '800 280px ' + font;
-            ctx.fillText(bmr.toLocaleString('ja-JP'), W / 2, 720);
-
-            ctx.fillStyle = '#6b7280';
-            ctx.font = '700 80px ' + font;
-            ctx.fillText('kcal', W / 2, 830);
-
-            ctx.fillStyle = '#9ca3af';
-            ctx.font = '500 34px ' + font;
-            ctx.fillText('基礎代謝 = 何もしなくても1日に使うカロリー', W / 2, 960);
-
+            // 白いカード（やわらかい影）
+            ctx.save();
+            ctx.shadowColor = 'rgba(45,59,85,0.14)';
+            ctx.shadowBlur = 40;
+            ctx.shadowOffsetY = 14;
+            roundRectPath(ctx, 70, 480, 940, 590, 60);
             ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 44px ' + font;
-            ctx.fillText('基礎代謝量・消費カロリー計算ツール', W / 2, 1180);
-            ctx.font = '400 30px ' + font;
-            ctx.globalAlpha = 0.85;
-            ctx.fillText(location.host + location.pathname.replace(/index\.html$/, ''), W / 2, 1235);
+            ctx.fill();
+            ctx.restore();
+
+            ctx.fillStyle = NAVY;
+            ctx.font = '700 54px ' + font;
+            ctx.fillText('あなたの基礎代謝は', W / 2, 590);
+
+            // 数字＋マーカー
+            const num = bmr.toLocaleString('ja-JP');
+            ctx.font = '900 270px ' + font;
+            const tw = ctx.measureText(num).width;
+            roundRectPath(ctx, W / 2 - tw / 2 - 20, 790, tw + 40, 62, 31);
+            ctx.fillStyle = PEACH;
+            ctx.fill();
+            ctx.fillStyle = ORANGE;
+            ctx.fillText(num, W / 2, 840);
+
+            ctx.fillStyle = NAVY;
+            ctx.font = '800 76px ' + font;
+            ctx.fillText('kcal', W / 2, 950);
+
+            ctx.globalAlpha = 0.65;
+            ctx.font = '500 32px ' + font;
+            ctx.fillText('基礎代謝 = 何もしなくても1日に使うカロリー', W / 2, 1022);
+            ctx.globalAlpha = 1;
+
+            // フッター
+            ctx.fillStyle = NAVY;
+            ctx.font = '900 58px ' + font;
+            ctx.fillText('痩せ方より、続け方。', W / 2, 1170);
+            ctx.fillStyle = ORANGE;
+            ctx.font = '800 40px ' + font;
+            ctx.fillText('@ganbarunbu', W / 2, 1232);
+            ctx.fillStyle = NAVY;
+            ctx.globalAlpha = 0.7;
+            ctx.font = '500 28px ' + font;
+            ctx.fillText('基礎代謝量・消費カロリー計算ツール', W / 2, 1286);
+            ctx.font = '400 26px ' + font;
+            ctx.fillText(location.host + location.pathname.replace(/index\.html$/, ''), W / 2, 1326);
             ctx.globalAlpha = 1;
 
             return canvas;
