@@ -40,6 +40,7 @@ h2{font-family:var(--font-d);font-size:19px;margin:28px 0 10px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:12px 14px}
 .card b{font-family:var(--font-d);font-size:15px;display:block;margin-bottom:2px}
 .card .vs{font-size:22px;font-weight:900;font-family:var(--font-d);color:var(--bar);font-variant-numeric:tabular-nums}
+.card .vs span{font-size:13px;font-weight:700;color:var(--muted);margin-left:4px}
 .card p{margin:4px 0 0;font-size:13px;color:var(--muted)}
 .tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 10px}
 .chip{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
@@ -90,24 +91,24 @@ input[type=number]{width:72px}
 
   <h2>え、そうなの？ 意外ポイント</h2>
   <div class="cards">
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-fries"/></svg>ポテトL ≒ ビッグマック</b><div class="vs">517 vs 525</div><p>マックのポテトLは、ビッグマックとほぼ同じ。ハンバーガー(259)の約2倍です。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-burger"/></svg>ビッグマック &lt; 牛丼並盛</b><div class="vs">525 vs 733</div><p>すき家の牛丼並盛は、ビッグマックより約200kcal高い。吉野家(633)でも100kcal上です。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-plate"/></svg>チーズ牛丼は900超え</b><div class="vs">911 / 901</div><p>すき家のチーズ牛丼と松屋のチーズ牛めしは、並盛でも900kcal前後。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-plate"/></svg>小盛・ミニで大きく減る</b><div class="vs">733 → 496</div><p>すき家はミニで237kcal減。松屋は小盛で188、吉野家は小盛で144減ります。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-chicken"/></svg>野菜のツイスターでも</b><div class="vs">360</div><p>ケンタのてりやきツイスターは360kcal。オリジナルチキン1ピース(218)より高い。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-salad"/></svg>サラダは10kcal</b><div class="vs">10 vs 146</div><p>マックのサイドサラダは10kcal。ソフトツイストは146kcalで15倍近く。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-soba"/></svg>うどん1玉はご飯1膳より軽い</b><div class="vs">190 vs 234</div><p>ゆでうどん200gは190kcal、ご飯150gは234kcal。100g比べでも95対156です。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-bun"/></svg>食パンは100gならご飯の1.6倍</b><div class="vs">248 vs 156</div><p>重さ当たりでは食パンが高め。ただし6枚切1枚(60g)は約149kcalです。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-frappe"/></svg>フラペチーノは飲み物でも重い</b><div class="vs">438 vs 310</div><p>スタバのアフォガート フラペチーノ(トール)は、マックのチーズバーガーより高い。ブラックのドリップは18kcalです。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-gratin"/></svg>カルボナーラは牛丼並盛超え</b><div class="vs">737 vs 733</div><p>サイゼリヤのカルボナーラは、すき家の牛丼並盛よりわずかに高い。ミラノ風ドリア(550)はビッグマック並みです。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-donut"/></svg>ドーナツは2倍以上の差</b><div class="vs">148 → 342</div><p>ミスドのフレンチクルーラーとオールドファッション ハニーでは、2倍以上違います。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-cake"/></svg>ショートケーキは意外と軽め</b><div class="vs">275 vs 410</div><p>ケーキ1個(目安)は、マックのポテトMより低い。生クリームの量で上下します。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-pearl"/></svg>タピオカだけで78kcal</b><div class="vs">312 → 426</div><p>TeaWayのミルクティーは、タピオカを足すと300kcal超え。キャラメル系だと400kcal超えです。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-chicken"/></svg>ファミチキ &gt; ケンタのチキン</b><div class="vs">251 vs 218</div><p>ファミチキ1個は、ケンタッキーのオリジナルチキン1ピースより高い。ハバネロホットは263、甘辛味は308です。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-ramen"/></svg>カップ麺の特盛は牛丼超え</b><div class="vs">684 vs 633</div><p>どん兵衛 天ぷらそば特盛は、吉野家の牛丼並盛より高い。通常サイズは448kcalです。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-bun"/></svg>肉まんは種類で157kcal差</b><div class="vs">205 → 362</div><p>セブンのふんわり肉まんと大入り豚まんでは、約1.8倍違います。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-plate"/></svg>おでん大根は12kcal</b><div class="vs">12 vs 251</div><p>おでんの大根1個は12kcalで、ファミチキの20分の1ほど。こんにゃくは3〜5kcalです。</p></div>
-    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-ramen"/></svg>二郎系は牛丼2.7杯ぶん</b><div class="vs">約1,720</div><p>標準的な二郎の推定値。大だと約2,300kcalという推定もあります。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-fries"/></svg>ポテトL ≒ ビッグマック</b><div class="vs">517 vs 525<span>kcal</span></div><p>マックのポテトLは、ビッグマックとほぼ同じ。ハンバーガー(259kcal)の約2倍です。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-burger"/></svg>ビッグマック &lt; 牛丼並盛</b><div class="vs">525 vs 733<span>kcal</span></div><p>すき家の牛丼並盛は、ビッグマックより約200kcal高い。吉野家(633kcal)でも100kcal上です。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-plate"/></svg>チーズ牛丼は900超え</b><div class="vs">911 / 901<span>kcal</span></div><p>すき家のチーズ牛丼と松屋のチーズ牛めしは、並盛でも900kcal前後。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-plate"/></svg>小盛・ミニで大きく減る</b><div class="vs">733 → 496<span>kcal</span></div><p>すき家はミニで237kcal減。松屋は小盛で188kcal、吉野家は小盛で144kcal減ります。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-chicken"/></svg>野菜のツイスターでも</b><div class="vs">360<span>kcal</span></div><p>ケンタのてりやきツイスターは360kcal。オリジナルチキン1ピース(218kcal)より高い。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-salad"/></svg>サラダは10kcal</b><div class="vs">10 vs 146<span>kcal</span></div><p>マックのサイドサラダは10kcal。ソフトツイストは146kcalで15倍近く。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-soba"/></svg>うどん1玉はご飯1膳より軽い</b><div class="vs">190 vs 234<span>kcal</span></div><p>ゆでうどん200gは190kcal、ご飯150gは234kcal。100g比べでも95対156kcalです。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-bun"/></svg>食パンは100gならご飯の1.6倍</b><div class="vs">248 vs 156<span>kcal</span></div><p>重さ当たりでは食パンが高め。ただし6枚切1枚(60g)は約149kcalです。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-frappe"/></svg>フラペチーノは飲み物でも重い</b><div class="vs">438 vs 310<span>kcal</span></div><p>スタバのアフォガート フラペチーノ(トール)は、マックのチーズバーガーより高い。ブラックのドリップは18kcalです。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-gratin"/></svg>カルボナーラは牛丼並盛超え</b><div class="vs">737 vs 733<span>kcal</span></div><p>サイゼリヤのカルボナーラは、すき家の牛丼並盛よりわずかに高い。ミラノ風ドリア(550kcal)はビッグマック並みです。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-donut"/></svg>ドーナツは2倍以上の差</b><div class="vs">148 → 342<span>kcal</span></div><p>ミスドのフレンチクルーラーとオールドファッション ハニーでは、2倍以上違います。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-cake"/></svg>ショートケーキは意外と軽め</b><div class="vs">275 vs 410<span>kcal</span></div><p>ケーキ1個(目安)は、マックのポテトMより低い。生クリームの量で上下します。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-pearl"/></svg>タピオカだけで78kcal</b><div class="vs">312 → 426<span>kcal</span></div><p>TeaWayのミルクティーは、タピオカを足すと300kcal超え。キャラメル系だと400kcal超えです。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-chicken"/></svg>ファミチキ &gt; ケンタのチキン</b><div class="vs">251 vs 218<span>kcal</span></div><p>ファミチキ1個は、ケンタッキーのオリジナルチキン1ピースより高い。ハバネロホットは263、甘辛味は308です。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-ramen"/></svg>カップ麺の特盛は牛丼超え</b><div class="vs">684 vs 633<span>kcal</span></div><p>どん兵衛 天ぷらそば特盛は、吉野家の牛丼並盛より高い。通常サイズは448kcalです。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-bun"/></svg>肉まんは種類で157kcal差</b><div class="vs">205 → 362<span>kcal</span></div><p>セブンのふんわり肉まんと大入り豚まんでは、約1.8倍違います。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-plate"/></svg>おでん大根は12kcal</b><div class="vs">12 vs 251<span>kcal</span></div><p>おでんの大根1個は12kcalで、ファミチキの20分の1ほど。こんにゃくは3〜5kcalです。</p></div>
+    <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-ramen"/></svg>二郎系は牛丼2.7杯ぶん</b><div class="vs">約1,720<span>kcal</span></div><p>標準的な二郎の推定値。大だと約2,300kcalという推定もあります。</p></div>
   </div>
 
   <h2>全部ならべてみる</h2>
