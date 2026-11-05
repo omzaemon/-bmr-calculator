@@ -355,6 +355,13 @@
             zones.forEach(z => { ctx.fillStyle = z.c; ctx.fillRect(xs(z.a), BY, xs(z.b) - xs(z.a) + 1, BH); });
             ctx.restore();
             [b0, b1, b2, b3].forEach(v => { ctx.fillStyle = '#fff'; ctx.fillRect(xs(v) - 2, BY, 4, BH); });
+            // バーの中の絵文字（幅がせまいゾーンでは出さない）
+            const zoneEmoji = ['\u26A0\uFE0F', '\u{1F3C3}\u200D\u27A1\uFE0F', '\u{1F6B6}\u200D\u27A1\uFE0F', '\u2696\uFE0F', '\u{1F354}'];
+            ctx.textAlign = 'center'; ctx.font = '54px ' + emoji;
+            zones.forEach((z, k) => {
+                const zw = xs(z.b) - xs(z.a);
+                if (zw >= 76) ctx.fillText(zoneEmoji[k], (xs(z.a) + xs(z.b)) / 2, BY + BH / 2 + 19);
+            });
 
             const ticks = [b0, b1, b2, b3].filter((v, i, arr) => arr.indexOf(v) === i);
             let prevX = -999, row = 0;
