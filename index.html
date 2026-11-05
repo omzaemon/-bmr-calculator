@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡単！基礎代謝量計算ツール</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col justify-between">
+
+    <!-- ヘッダー -->
+    <header class="bg-white shadow-sm py-4">
+        <div class="max-w-md mx-auto px-4 text-center">
+            <h1 class="text-xl font-bold text-indigo-600">基礎代謝量 計算ツール</h1>
+            <p class="text-xs text-gray-500 mt-1">毎日の体づくりやダイエットの基準に</p>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="max-w-md mx-auto px-4 py-6 w-full flex-grow">
+        <div class="bg-white rounded-2xl shadow-md p-6">
+            <form id="bmrForm" class="space-y-4">
+                <!-- 性別 -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">性別</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="gender" value="male" checked class="text-indigo-600 focus:ring-indigo-500">
+                            <span>男性</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="gender" value="female" class="text-indigo-600 focus:ring-indigo-500">
+                            <span>女性</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 体重 -->
+                <div>
+                    <label for="weight" class="block text-sm font-medium text-gray-700 mb-1">体重 (kg)</label>
+                    <input type="number" id="weight" step="0.1" required placeholder="例: 65"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+
+                <!-- 身長 -->
+                <div>
+                    <label for="height" class="block text-sm font-medium text-gray-700 mb-1">身長 (cm)</label>
+                    <input type="number" id="height" step="0.1" required placeholder="例: 170"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+
+                <!-- 年齢 -->
+                <div>
+                    <label for="age" class="block text-sm font-medium text-gray-700 mb-1">年齢 (歳)</label>
+                    <input type="number" id="age" required placeholder="例: 28"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+
+                <!-- 計算ボタン -->
+                <button type="submit"
+                    class="w-full bg-indigo-600 text-white font-medium py-2.5 rounded-lg hover:bg-indigo-700 transition duration-200 shadow-md">
+                    基礎代謝を計算する
+                </button>
+            </form>
+
+            <!-- 計算結果表示エリア（初期は非表示） -->
+            <div id="resultArea" class="mt-6 pt-6 border-t border-gray-100 hidden">
+                <h2 class="text-sm font-medium text-gray-500 text-center">あなたの1日の基礎代謝量</h2>
+                <div class="text-center mt-2">
+                    <span id="bmrValue" class="text-4xl font-extrabold text-indigo-600">0</span>
+                    <span class="text-lg font-medium text-gray-600 ml-1">kcal</span>
+                </div>
+                <p class="text-xs text-gray-400 text-center mt-2">
+                    ※ハリス・ベネディクト方程式（標準式）に基づいて算出しています。
+                </p>
+            </div>
+        </div>
+
+        <!-- ★ アフィリエイトバナー配置エリア ★ -->
+        <div class="mt-6 bg-white rounded-2xl shadow-md p-4 text-center">
+            <p class="text-xs text-gray-400 mb-2">おすすめの関連サービス・プロテイン</p>
+            
+            <!-- ▼▼▼ A8.netからコピーしたコードをここに貼り付ける ▼▼▼ -->
+            <div style="font-size:12px; color:#888;">
+                （ここにA8.netのHTMLタグやバナーコードを貼り付けます）
+            </div>
+            <!-- ▲▲▲ ここまで ▲▲▲ -->
+
+        </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-white border-t border-gray-200 py-4 mt-8">
+        <div class="max-w-md mx-auto px-4 text-center text-xs text-gray-400">
+            &copy; 2026 基礎代謝量計算ツール All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- 計算のJavaScriptロジック -->
+    <script>
+        const form = document.getElementById('bmrForm');
+        const resultArea = document.getElementById('resultArea');
+        const bmrValue = document.getElementById('bmrValue');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const age = parseInt(document.getElementById('age').value);
+
+            let bmr = 0;
+
+            // ハリス・ベネディクト方程式
+            if (gender === 'male') {
+                // 男性: 66.5 + (13.7 × 体重) + (5.0 × 身長) - (6.8 × 年齢)
+                bmr = 66.5 + (13.7 * weight) + (5.0 * height) - (6.8 * age);
+            } else {
+                // 女性: 655.1 + (9.6 × 体重) + (1.7 × 身長) - (4.7 × 年齢)
+                bmr = 655.1 + (9.6 * weight) + (1.7 * height) - (4.7 * age);
+            }
+
+            // 四捨五入して表示
+            bmrValue.textContent = Math.round(bmr);
+            resultArea.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
