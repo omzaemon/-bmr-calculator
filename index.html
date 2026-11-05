@@ -18,7 +18,7 @@
     </header>
 
     <!-- メインコンテンツ -->
-    <main class="max-w-md mx-auto px-4 py-6 w-full flex-grow">
+    <main class="max-w-md mx-auto px-4 py-6 w-full flex-grow space-y-6">
         <div class="bg-white rounded-2xl shadow-md p-6">
             <form id="bmrForm" class="space-y-4">
                 <!-- 性別 -->
@@ -106,8 +106,44 @@
             </div>
         </div>
 
+        <!-- カロリー目安参考セクション -->
+        <div class="bg-white rounded-2xl shadow-md p-6 space-y-4 text-xs text-gray-600">
+            <h2 class="font-bold text-gray-800 text-sm border-b pb-2">💡 あのメニューのカロリー目安</h2>
+            
+            <!-- 男子ガッツリ -->
+            <div>
+                <span class="font-bold text-indigo-600 block mb-1">🔥 男子に人気のガッツリ飯</span>
+                <ul class="space-y-1 list-disc list-inside text-gray-500">
+                    <li>ラーメン（大盛・チャーシュー）: 約 900〜1,100 kcal</li>
+                    <li>カツ丼: 約 850〜950 kcal</li>
+                    <li>ビーフステーキ（300g・ライス付）: 約 1,000〜1,200 kcal</li>
+                </ul>
+            </div>
+
+            <!-- 女子カフェ・定番 -->
+            <div>
+                <span class="font-bold text-pink-600 block mb-1">🥗 女子に人気の定番ランチ</span>
+                <ul class="space-y-1 list-disc list-inside text-gray-500">
+                    <li>チキンサラダプレート: 約 450〜550 kcal</li>
+                    <li>トマト系パスタ: 約 600〜700 kcal</li>
+                    <li>お寿司（8皿＋お味噌汁）: 約 500〜600 kcal</li>
+                </ul>
+            </div>
+
+            <!-- スタバドリンク -->
+            <div>
+                <span class="font-bold text-emerald-600 block mb-1">☕ スターバックスのドリンク目安（Tall）</span>
+                <ul class="space-y-1 list-disc list-inside text-gray-500">
+                    <li>スターバックス ラテ（ミルク）: 約 220 kcal</li>
+                    <li>スターバックス ラテ（オーツミルク変更）: 約 210 kcal</li>
+                    <li>キャラメル フラペチーノ®: 約 320 kcal</li>
+                    <li>ドリップ コーヒー（ミルクなし）: 約 15 kcal</li>
+                </ul>
+            </div>
+        </div>
+
         <!-- アフィリエイトバナー配置エリア -->
-        <div class="mt-6 bg-white rounded-2xl shadow-md p-4 text-center">
+        <div class="bg-white rounded-2xl shadow-md p-4 text-center">
             <p class="text-xs text-gray-400 mb-2">おすすめの関連サービス・プロテイン</p>
             <div style="font-size:12px; color:#888;">
                 （ここにA8.netのHTMLタグやバナーコードを貼り付けます）
@@ -134,20 +170,18 @@
 
             const gender = document.querySelector('input[name="gender"]:checked').value;
             const weight = parseFloat(document.getElementById('weight').value);
-            const height = parseFloat(document.getElementById('height').value);
+            const height = parseFloat(document.getElementById('height'].value);
             const age = parseInt(document.getElementById('age').value);
             const activity = parseFloat(document.getElementById('activity').value);
 
             let bmr = 0;
 
-            // ハリス・ベネディクト方程式
             if (gender === 'male') {
                 bmr = 66.5 + (13.7 * weight) + (5.0 * height) - (6.8 * age);
             } else {
                 bmr = 655.1 + (9.6 * weight) + (1.7 * height) - (4.7 * age);
             }
 
-            // 総消費カロリー（TDEE）の計算
             const tdee = bmr * activity;
 
             bmrValue.textContent = Math.round(bmr);
