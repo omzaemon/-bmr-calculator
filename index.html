@@ -140,6 +140,12 @@
                     <li>ドリップ コーヒー（ミルクなし）: 約 15 kcal</li>
                 </ul>
             </div>
+
+            <!-- カロリー一覧表へのリンク -->
+            <a href="calories.html"
+                class="block w-full text-center bg-indigo-50 text-indigo-700 font-medium py-2.5 rounded-lg hover:bg-indigo-100 transition duration-200">
+                もっと見る：カロリー一覧表（約170品目）→
+            </a>
         </div>
 
         <!-- アフィリエイトバナー配置エリア -->
@@ -170,7 +176,7 @@
 
             const gender = document.querySelector('input[name="gender"]:checked').value;
             const weight = parseFloat(document.getElementById('weight').value);
-            const height = parseFloat(document.getElementById('height'].value);
+            const height = parseFloat(document.getElementById('height').value);
             const age = parseInt(document.getElementById('age').value);
             const activity = parseFloat(document.getElementById('activity').value);
 
@@ -187,6 +193,12 @@
             bmrValue.textContent = Math.round(bmr);
             tdeeValue.textContent = Math.round(tdee);
             resultArea.classList.remove('hidden');
+
+            // カロリー一覧表(calories.html)に引き継ぐ
+            try {
+                localStorage.setItem('bmr_tdee', Math.round(tdee));
+                localStorage.setItem('bmr_weight', weight);
+            } catch (err) {}
         });
     </script>
 </body>
