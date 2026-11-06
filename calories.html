@@ -72,6 +72,21 @@ input[type=number]{width:72px}
 .card b{display:flex;align-items:center;gap:8px}.card b .ic{width:28px;height:28px;margin:0}
 .notelink .nl-ic{display:flex;gap:6px;margin-bottom:6px}.notelink .nl-ic .ic{width:34px;height:34px;margin:0}
 .note{font-size:12px;color:var(--muted);margin-top:18px;line-height:1.7}
+.vsbox{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:14px}
+.vsel{display:grid;grid-template-columns:1fr;gap:4px;margin-bottom:12px}
+.vsel label{display:block;font-size:12px;color:var(--muted);min-width:0}
+.vsel select{width:100%;margin-top:2px}
+.vsel .vsmark{font-family:var(--font-d);font-weight:900;color:var(--accent);text-align:center;line-height:1}
+.vrow{margin:10px 0}
+.vrow .vt{display:flex;justify-content:space-between;gap:8px;align-items:baseline;font-weight:700;font-size:14px}
+.vrow .vt span{font-family:var(--font-d);font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.vrow .vt span small{font-size:11px;color:var(--muted);font-weight:500;margin-left:2px}
+.vbar{height:10px;background:var(--bar-bg);border-radius:5px;overflow:hidden;margin-top:4px}
+.vbar i{display:block;height:100%;background:var(--bar);border-radius:5px}
+.vrow.lo .vbar i{background:var(--lo)}
+.vd{margin:12px 0 4px;font-size:15px}.vd b{font-family:var(--font-d)}
+.vd .vdiff{display:block;font-family:var(--font-d);font-weight:900;font-size:28px;color:var(--accent);font-variant-numeric:tabular-nums}
+.vk{font-size:13px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -109,6 +124,22 @@ input[type=number]{width:72px}
     <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-bun"/></svg>肉まんは種類で157kcal差</b><div class="vs">205 → 362<span>kcal</span></div><p>セブンのふんわり肉まんと大入り豚まんでは、約1.8倍違います。</p></div>
     <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-plate"/></svg>おでん大根は12kcal</b><div class="vs">12 vs 251<span>kcal</span></div><p>おでんの大根1個は12kcalで、ファミチキの20分の1ほど。こんにゃくは3〜5kcalです。</p></div>
     <div class="card"><b><svg class="ic" aria-hidden="true"><use href="#i-ramen"/></svg>二郎系は牛丼2.7杯ぶん</b><div class="vs">約1,720<span>kcal</span></div><p>標準的な二郎の推定値。大だと約2,300kcalという推定もあります。</p></div>
+  </div>
+
+  <h2>くらべてみる（vs）</h2>
+  <div class="vsbox">
+    <div class="vsel">
+      <label>A<select id="va" aria-label="Aのメニュー"></select></label>
+      <span class="vsmark">vs</span>
+      <label>B<select id="vb" aria-label="Bのメニュー"></select></label>
+    </div>
+    <div id="vres" aria-live="polite"></div>
+    <div class="tools" style="margin-top:12px">
+      <button class="chip" id="vshare" type="button">画像を保存・シェア</button>
+      <button class="chip" id="vcopy" type="button">リンクをコピー</button>
+      <span class="run" id="vmsg" role="status"></span>
+    </div>
+    <p class="note" style="margin-top:8px">走って消す距離は「体重kg × 距離km ≒ kcal」の目安です。体重は、厚生労働省「日本人の食事摂取基準（2025年版）」の30〜49歳の参照体重（男性70.0kg、女性53.3kg）を使っています。</p>
   </div>
 
   <h2>全部ならべてみる</h2>
@@ -393,6 +424,111 @@ try{
   if(w) $("w").value = w;
 }catch(e){}
 render();
+
+// ===== くらべてみる（vs） =====
+const REF = { m:{label:"男性", kg:70.0}, f:{label:"女性", kg:53.3} };
+const fmtKm = k => k<1 ? "約"+(Math.max(10,Math.round(k*100)*10))+"m" : "約"+k.toFixed(1)+"km";
+const keyOf = d => d[0]+"|"+d[1];
+const vA = $("va"), vB = $("vb");
+(function(){
+  const groups = {};
+  D.forEach((d,i)=>{ (groups[d[2]] = groups[d[2]]||[]).push(i); });
+  const opts = Object.keys(groups).map(g=>`<optgroup label="${g}">`+groups[g].map(i=>`<option value="${i}">${D[i][0]}（${D[i][1]}）${fmt(D[i][3])}kcal</option>`).join("")+`</optgroup>`).join("");
+  vA.innerHTML = opts; vB.innerHTML = opts;
+  const find = (n,b)=> D.findIndex(d=>d[0]===n && (!b||d[1]===b));
+  let a = find("マックフライポテト L"), b = find("ビッグマック");
+  const sp = new URLSearchParams(location.search);
+  const ia = D.findIndex(d=>keyOf(d)===sp.get("a")), ib = D.findIndex(d=>keyOf(d)===sp.get("b"));
+  if(ia>=0) a = ia; if(ib>=0) b = ib;
+  vA.value = a>=0?a:0; vB.value = b>=0?b:1;
+})();
+function vsData(){
+  const a = D[+vA.value], b = D[+vB.value];
+  const hi = a[3]>=b[3] ? a : b, lo = a[3]>=b[3] ? b : a;
+  const diff = hi[3]-lo[3];
+  return {a,b,hi,lo,diff,km:{m:diff/REF.m.kg, f:diff/REF.f.kg}};
+}
+function renderVs(){
+  const v = vsData(), mx = Math.max(v.a[3],v.b[3]);
+  const row = (d,isLo)=>`<div class="vrow${isLo?" lo":""}"><div class="vt"><div>${d[0]}<small style="font-weight:400;color:var(--muted);font-size:11px;margin-left:6px">${d[1]}</small></div><span>${fmt(d[3])}<small>kcal</small></span></div><div class="vbar"><i style="width:${d[3]/mx*100}%"></i></div></div>`;
+  const aLo = v.a[3] < v.b[3], bLo = v.b[3] < v.a[3];
+  let head;
+  if(v.diff===0) head = `<div class="vd">同じカロリーです<span class="vdiff">差 0kcal</span></div>`;
+  else head = `<div class="vd"><b>${v.hi[0]}</b> は <b>${v.lo[0]}</b> より<span class="vdiff">約${fmt(v.diff)}kcal 高い</span></div><div class="vk">走って消すと…　${REF.m.label}（平均${REF.m.kg.toFixed(1)}kg）で${fmtKm(v.km.m)} ／ ${REF.f.label}（平均${REF.f.kg.toFixed(1)}kg）で${fmtKm(v.km.f)}</div>`;
+  $("vres").innerHTML = row(v.a,aLo)+row(v.b,bLo)+head;
+}
+[vA,vB].forEach(el=>el.addEventListener("change",()=>{ renderVs(); try{ const v=vsData(); history.replaceState(null,"","?a="+encodeURIComponent(keyOf(D[+vA.value]))+"&b="+encodeURIComponent(keyOf(D[+vB.value]))); }catch(e){} }));
+function vsUrl(){ return location.origin+location.pathname+"?a="+encodeURIComponent(keyOf(D[+vA.value]))+"&b="+encodeURIComponent(keyOf(D[+vB.value])); }
+function symImg(id){
+  return new Promise(res=>{
+    const sym = document.getElementById("i-"+id); const img = new Image();
+    img.onload = ()=>res(img); img.onerror = ()=>res(null);
+    img.src = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">'+sym.innerHTML+'</svg>');
+  });
+}
+function rr(c,x,y,w,h,r){ c.beginPath(); c.moveTo(x+r,y); c.arcTo(x+w,y,x+w,y+h,r); c.arcTo(x+w,y+h,x,y+h,r); c.arcTo(x,y+h,x,y,r); c.arcTo(x,y,x+w,y,r); c.closePath(); }
+function fit(c,text,maxW,size,weight){ let s=size; do{ c.font=`${weight} ${s}px "Noto Sans JP",sans-serif`; s-=2; }while(c.measureText(text).width>maxW && s>20); }
+async function vsCanvas(){
+  const v = vsData(), W=1080, H=1350, cv=document.createElement("canvas"); cv.width=W; cv.height=H;
+  const c = cv.getContext("2d"), F='"Noto Sans JP",sans-serif', INK="#2D3B55", MUTE="#5F6B83", ACC="#E8673C";
+  c.fillStyle="#FFF4E3"; c.fillRect(0,0,W,H);
+  c.textBaseline="alphabetic";
+  c.fillStyle=INK; c.font=`900 32px ${F}`; c.textAlign="left"; c.fillText("基礎代謝電卓",60,80);
+  c.fillStyle=ACC; c.font=`700 40px ${F}`; c.fillText("くらべてみた",60,170);
+  const mx = Math.max(v.a[3],v.b[3]);
+  const items=[v.a,v.b];
+  for(let i=0;i<2;i++){
+    const d=items[i], y=215+i*270, isLo = d[3]<items[1-i][3];
+    c.fillStyle="#fff"; rr(c,60,y,960,240,28); c.fill(); c.strokeStyle="#F0E2CC"; c.lineWidth=2; c.stroke();
+    const im = await symImg(iconFor(d[0],d[2])); if(im) c.drawImage(im,90,y+24,110,110);
+    c.fillStyle=INK; c.textAlign="left"; fit(c,d[0],640,48,900); c.fillText(d[0],225,y+78);
+    c.fillStyle=MUTE; c.font=`500 26px ${F}`; c.fillText(d[1]+(d[4]?"・"+d[4]:""),225,y+118);
+    c.textAlign="right"; c.fillStyle=MUTE; c.font=`700 28px ${F}`; c.fillText("kcal",990,y+110);
+    const kw=c.measureText("kcal").width; c.fillStyle=INK; c.font=`900 76px ${F}`; c.fillText(fmt(d[3]),990-kw-10,y+110);
+    c.textAlign="left";
+    c.fillStyle="#F3E6D3"; rr(c,90,y+168,900,36,18); c.fill();
+    c.fillStyle=isLo?"#2E8B57":ACC; rr(c,90,y+168,Math.max(36,900*d[3]/mx),36,18); c.fill();
+  }
+  c.textAlign="left";
+  if(v.diff===0){ c.fillStyle=INK; c.font=`900 90px ${F}`; c.fillText("同じカロリー",60,880); }
+  else{
+    c.fillStyle=MUTE; c.font=`700 34px ${F}`; c.fillText("その差",60,768);
+    c.fillStyle=ACC; c.font=`900 150px ${F}`; const t="約"+fmt(v.diff); c.fillText(t,60,945); const w=c.measureText(t).width;
+    c.fillStyle=MUTE; c.font=`700 52px ${F}`; c.fillText("kcal",60+w+14,945);
+    c.fillStyle="#fff"; rr(c,60,985,960,190,28); c.fill(); c.strokeStyle="#F0E2CC"; c.stroke();
+    c.fillStyle=MUTE; c.font=`700 30px ${F}`; c.fillText("走って消すと…",96,1032);
+    c.fillStyle=INK; c.font=`900 44px ${F}`;
+    c.fillText(`${REF.m.label}（平均${REF.m.kg.toFixed(1)}kg）  ${fmtKm(v.km.m)}`,96,1098);
+    c.fillText(`${REF.f.label}（平均${REF.f.kg.toFixed(1)}kg）  ${fmtKm(v.km.f)}`,96,1156);
+  }
+  c.fillStyle=MUTE; c.font=`500 22px ${F}`;
+  c.fillText("目安：体重kg × 距離km ≒ kcal。体重は厚生労働省「日本人の食事摂取基準（2025年版）」",60,1212);
+  c.fillText("30〜49歳の参照体重。数字は公表値や目安で、お店や量で変わります。",60,1242);
+  c.fillStyle=INK; c.font=`700 28px ${F}`; c.fillText("kisotaisha-dentaku.com",60,1305);
+  c.textAlign="right"; c.fillStyle=ACC; c.fillText("基礎代謝電卓",1020,1305);
+  return cv;
+}
+window.vsCanvas = vsCanvas;
+function vsMsg(t){ $("vmsg").textContent=t; clearTimeout(vsMsg.t); vsMsg.t=setTimeout(()=>{$("vmsg").textContent="";},3000); }
+$("vshare").addEventListener("click", async ()=>{
+  try{
+    const v = vsData(), cv = await vsCanvas();
+    const blob = await new Promise(r=>cv.toBlob(r,"image/png"));
+    const file = new File([blob],"vs-calories.png",{type:"image/png"});
+    const text = `${v.a[0]} vs ${v.b[0]}：差は約${fmt(v.diff)}kcal`;
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({files:[file], text, url:vsUrl()});
+    }else{
+      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "vs-calories.png"; document.body.appendChild(a); a.click(); a.remove();
+      vsMsg("画像を保存しました");
+    }
+  }catch(e){ if(e && e.name!=="AbortError") vsMsg("うまくいきませんでした"); }
+});
+$("vcopy").addEventListener("click", async ()=>{
+  try{ await navigator.clipboard.writeText(vsUrl()); vsMsg("リンクをコピーしました"); }
+  catch(e){ vsMsg(vsUrl()); }
+});
+renderVs();
 </script>
 </body>
 </html>
