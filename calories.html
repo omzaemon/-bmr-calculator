@@ -84,6 +84,11 @@ input[type=number]{width:72px}
 .acc .at b{display:block;font-family:var(--font-d);font-size:17px;line-height:1.4}
 .acc .at span{display:block;font-size:12px;color:var(--muted);line-height:1.5}
 .acc>.ab{padding:2px 14px 16px;border-top:1px solid var(--line)}
+dialog.vsdlg{border:0;border-radius:18px;padding:14px;width:min(92vw,460px);max-height:92vh;background:var(--card);box-shadow:0 8px 40px rgba(0,0,0,.35)}
+dialog.vsdlg::backdrop{background:rgba(45,59,85,.55)}
+.vsdlg img{display:block;width:100%;max-height:68vh;object-fit:contain;border-radius:12px;border:1px solid var(--line);background:#FFF4E3}
+.vsdlg .vh{font-size:12px;color:var(--muted);margin:8px 2px 10px;line-height:1.6}
+.vsdlg .vb{display:flex;gap:8px;flex-wrap:wrap}
 .vsbox{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:14px}
 .vsel{display:grid;grid-template-columns:1fr;gap:4px;margin-bottom:12px}
 .vsel label{display:block;font-size:12px;color:var(--muted);min-width:0}
@@ -152,7 +157,7 @@ input[type=number]{width:72px}
     </div>
     <div id="vres" aria-live="polite"></div>
     <div class="tools" style="margin-top:12px">
-      <button class="chip" id="vshare" type="button">画像を保存・シェア</button>
+      <button class="chip" id="vshare" type="button">画像をつくる（保存・シェア）</button>
       <button class="chip" id="vcopy" type="button">リンクをコピー</button>
       <span class="run" id="vmsg" role="status"></span>
     </div>
@@ -197,6 +202,15 @@ input[type=number]{width:72px}
   <p class="note" style="text-align:center">&copy; 2026 基礎代謝電卓 All Rights Reserved.</p>
 </div>
 
+<dialog class="vsdlg" id="vdlg" aria-label="シェア画像のプレビュー">
+  <img id="vimg" alt="くらべた結果のシェア画像">
+  <p class="vh">長押しでも保存できます。内容を確かめてから、保存やシェアをしてください。</p>
+  <div class="vb">
+    <button class="chip" id="vdsave" type="button">画像を保存</button>
+    <button class="chip" id="vdshare" type="button" hidden>シェアする</button>
+    <button class="chip" id="vdclose" type="button">閉じる</button>
+  </div>
+</dialog>
 <script>
 // [名前, ブランド, カテゴリ, kcal, 補足]
 const D = [
@@ -533,19 +547,28 @@ async function vsCanvas(){
 }
 window.vsCanvas = vsCanvas;
 function vsMsg(t){ $("vmsg").textContent=t; clearTimeout(vsMsg.t); vsMsg.t=setTimeout(()=>{$("vmsg").textContent="";},3000); }
+let vFile=null, vUrl="";
 $("vshare").addEventListener("click", async ()=>{
   try{
-    const v = vsData(), cv = await vsCanvas();
+    const cv = await vsCanvas();
     const blob = await new Promise(r=>cv.toBlob(r,"image/png"));
-    const file = new File([blob],"vs-calories.png",{type:"image/png"});
-    const text = `${v.a[0]} vs ${v.b[0]}：差は約${fmt(v.diff)}kcal`;
-    if(navigator.canShare && navigator.canShare({files:[file]})){
-      await navigator.share({files:[file], text, url:vsUrl()});
-    }else{
-      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "vs-calories.png"; document.body.appendChild(a); a.click(); a.remove();
-      vsMsg("画像を保存しました");
-    }
-  }catch(e){ if(e && e.name!=="AbortError") vsMsg("うまくいきませんでした"); }
+    if(vUrl) URL.revokeObjectURL(vUrl);
+    vUrl = URL.createObjectURL(blob);
+    vFile = new File([blob],"vs-calories.png",{type:"image/png"});
+    $("vimg").src = vUrl;
+    $("vdshare").hidden = !(navigator.canShare && navigator.canShare({files:[vFile]}));
+    const dlg = $("vdlg"); if(dlg.showModal) dlg.showModal(); else dlg.setAttribute("open","");
+  }catch(e){ vsMsg("うまくいきませんでした"); }
+});
+$("vdclose").addEventListener("click",()=>{ const d=$("vdlg"); if(d.close) d.close(); else d.removeAttribute("open"); });
+$("vdlg").addEventListener("click",e=>{ if(e.target===$("vdlg")) $("vdclose").click(); });
+$("vdsave").addEventListener("click",()=>{
+  const a = document.createElement("a"); a.href = vUrl; a.download = "vs-calories.png"; document.body.appendChild(a); a.click(); a.remove();
+  vsMsg("画像を保存しました");
+});
+$("vdshare").addEventListener("click", async ()=>{
+  try{ const v=vsData(); await navigator.share({files:[vFile], text:`${v.a[0]} vs ${v.b[0]}：差は約${fmt(v.diff)}kcal`, url:vsUrl()}); }
+  catch(e){ if(e && e.name!=="AbortError") vsMsg("うまくいきませんでした"); }
 });
 $("vcopy").addEventListener("click", async ()=>{
   try{ await navigator.clipboard.writeText(vsUrl()); vsMsg("リンクをコピーしました"); }
